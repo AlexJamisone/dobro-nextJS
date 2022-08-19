@@ -1,8 +1,9 @@
 import { NextPage } from 'next'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+import Logo from './Logo/Logo'
 import styles from './Navigation.module.scss'
 
 const Navigation: NextPage = () => {
@@ -30,12 +31,7 @@ const Navigation: NextPage = () => {
 					transition={{ delay: 0.5 }}
 					className={styles.logo}
 				>
-					<Image
-						src="/static/header/logo.svg"
-						width={283}
-						height={120}
-						alt="logo"
-					/>
+					<Logo />
 				</motion.div>
 			</Link>
 			<Link href="yandex">

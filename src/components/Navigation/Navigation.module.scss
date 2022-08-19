@@ -1,24 +1,25 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
 }
 
 .tasty {
-    color: var(--primary-black);
-    z-index: 2;
+	color: var(--primary-black);
+	z-index: 2;
 }
 
 .logo {
-    margin: 2rem;
-    z-index: 2;
-    color: var(--primary-black);
+	margin: 2rem;
+	z-index: 2;
+	color: var(--primary-black);
+
+    
 }
 
-
 .yandex {
-    color: var(--primary-black);
-    z-index: 2;
+	color: var(--primary-black);
+	z-index: 2;
 }
