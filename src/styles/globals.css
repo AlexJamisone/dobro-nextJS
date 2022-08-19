@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, 'Raleway' BlinkMacSystemFont, Segoe UI, Roboto,
+		Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, 'Helvetica Neue',
+		sans-serif;
+		background-color: var(--bg-color);
+}
+
+body {
+	overflow: hidden;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--font-base: 'Raleway', sans-serif;
+
+	--primary-black: #0d0802;
+	--second-black: #46484e;
+	--primary-golden: #bfa784;
+	--primary-type: #46484e;
+	--primary-gray: #7c7c7c;
+	--bg-color: #fff7f2;
+}
+
+@viewport {
+	user-zoom: fixed;
+}
