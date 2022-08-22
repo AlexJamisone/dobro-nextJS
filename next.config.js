@@ -13,4 +13,7 @@ module.exports = {
       allowFutureImage: true,
     },
   },
+  images: {
+    domains: ['coffee-static.storage.yandexcloud.net']
+  }
 }
