@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Content from '../components/MainContent/Content'
+import Spinner from '../components/Spinner/Spinner'
 
 const Home: NextPage = () => {
 	return (
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main>
-				<Content/>
+				<Content />
 			</main>
 
 			<footer></footer>

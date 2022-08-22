@@ -10,19 +10,19 @@ const Content = () => {
 	const [data, setData] = useState([])
 	const [filterData, setFilterData] = useState(data)
 	const [search, setSearch] = useState('')
-	const [loading, setloading] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		setloading(true)
 		async function getData() {
+			setLoading(true)
 			const api_url =
-				'https://wrapapi.com/use/alexjamison/homeit/all/latest?wrapAPIKey=HCTPpA928xiR2xIr0ON2HkyaS8gKg4Lz'
+			'https://wrapapi.com/use/alexjamison/homeit/all/latest?wrapAPIKey=HCTPpA928xiR2xIr0ON2HkyaS8gKg4Lz'
 			const res = await axios.get(api_url)
 			const response = await res.data.data.coffee
+			setLoading(false)
 			return setData(response)
 		}
 		getData()
-		setloading(false)
 	}, [])
 
 	useEffect(() => {
