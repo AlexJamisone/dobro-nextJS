@@ -6,9 +6,9 @@ import Navigation from '../components/Navigation/Navigation'
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
-			<Component {...pageProps} />
 			<Background />
 			<Navigation/>
+			<Component {...pageProps} />
 		</>
 	)
 }
