@@ -1,4 +1,6 @@
 .svg {
+	width: 100%;
+	height: auto;
     path:nth-child(10) {
 		animation: blink 0.3s ease-in-out 2, movi 3s ease-in-out 1.5s infinite;
 		animation-delay: 1s;

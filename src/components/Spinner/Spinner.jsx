@@ -8,9 +8,9 @@ const Spinner = () => {
 		<>
 			<motion.div
 				className={styles.spinner}
-				initial={{ y: -200, opacity: 0 }}
-				animate={{ rotate: 360, y: [-200, 50, -200, 50], opacity: 1 }}
-				transition={{ type: 'spring', repeat: 'Infinity', duration: 4 }}
+				initial={{ opacity: 0 }}
+				animate={{ rotate: 360, opacity: 1 }}
+				transition={{ type: 'spring', repeat: 'Infinity', duration: 2 }}
 			>
 				<SpinnerRow/>
 			</motion.div>

@@ -1,4 +1,4 @@
-.container {
+.nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -9,17 +9,34 @@
 .tasty {
 	color: var(--primary-black);
 	z-index: 2;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		scale: 1.1;
+		filter: drop-shadow(18px -13px 16px var(--primary-black));
+	}
+	@media screen and (max-width: 1225px) {
+		display: none;
+	}
 }
 
 .logo {
+	height: auto;
 	margin: 2rem;
 	z-index: 2;
 	color: var(--primary-black);
-
-    
 }
 
 .yandex {
 	color: var(--primary-black);
 	z-index: 2;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		scale: 1.1;
+		filter: drop-shadow(18px -13px 16px var(--primary-black));
+	}
+	@media screen and (max-width: 1225px) {
+		display: none;
+	}
 }

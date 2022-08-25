@@ -1,0 +1,46 @@
+.list {
+	position: absolute;
+	bottom: 0;
+	right: 25%;
+	width: 230px;
+	z-index: 1000;
+	text-align: center;
+	@media screen and (min-width: 1225px) {
+		display: none;
+	}
+	@media screen and (max-width: 650px) {
+        bottom: -20%;
+	}
+	@media screen and (max-width: 440px) {
+		left: 50%;
+		bottom: -20%;
+	}
+	@media screen and (max-width: 375px) {
+		left: 50%;
+		bottom: -50%;
+	}
+	li {
+		list-style: none;
+        font-family: 'Raleway';
+		margin-bottom: 0.5rem;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		text-align: right;
+		cursor: pointer;
+		@media screen and (max-width: 1225px) {
+			justify-content: center;
+            text-align: center;
+		}
+		@media screen and (max-width: 985px) {
+			font-size: .9rem;
+		}
+		@media screen and (max-width: 860px) {
+			text-align: right;
+		}
+		@media screen and (max-width: 420px) {
+			justify-content: center;
+			margin-top: -0.2rem;
+		}
+	}
+}

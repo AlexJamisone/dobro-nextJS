@@ -10,7 +10,7 @@ const Content = () => {
 	const [data, setData] = useState([])
 	const [filterData, setFilterData] = useState(data)
 	const [search, setSearch] = useState('')
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		async function getData() {

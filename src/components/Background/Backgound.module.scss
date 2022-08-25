@@ -1,7 +1,7 @@
 .container {
 	position: relative;
 	width: 100%;
-	height: auto;
+	height: 100%;
 }
 .leftBG {
 	width: 100%;
@@ -30,10 +30,16 @@
 	right: 0;
 	z-index: 1000;
 	background-repeat: no-repeat;
-
+	
 	@media screen and (max-width: 1040px) {
 		background-image: url('/static/bg/mobileRightBG.png');
 		width: 140px;
 		top: 3rem;
+	}
+	@media screen and (max-width: 435px) {
+		right: -3rem;
+	}
+	@media screen and (max-width: 364px) {
+		right: -4rem;
 	}
 }
