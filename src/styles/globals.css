@@ -36,6 +36,18 @@ a {
 	--bg-color: #fff7f2;
 }
 
+#__next {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+
+main {
+	margin-bottom: 2rem;
+}
+
 @viewport {
 	user-zoom: fixed;
 }

@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import LinkToApp from '../components/LinkToApp/LinkToApp'
 import Content from '../components/MainContent/Content'
-import Spinner from '../components/Spinner/Spinner'
-
+import styles from '../styles/index.module.scss'
 const Home: NextPage = () => {
 	return (
 		<>
@@ -19,7 +19,9 @@ const Home: NextPage = () => {
 				<Content />
 			</main>
 
-			<footer></footer>
+			<footer className={styles.footer}>
+				<LinkToApp/>
+			</footer>
 		</>
 	)
 }

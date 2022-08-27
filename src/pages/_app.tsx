@@ -6,11 +6,11 @@ import styles from '../styles/index.module.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<div className={styles.container}>
+		<>
 			<Background />
 			<Navigation/>
 			<Component {...pageProps} />
-		</div>
+		</>
 	)
 }
 
