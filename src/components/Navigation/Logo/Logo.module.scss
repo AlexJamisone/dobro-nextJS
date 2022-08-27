@@ -10,6 +10,10 @@
 		animation-delay: 1s;
 	}
 
+	@media screen and (max-width: 510px) {
+		width: 200px;
+	}
+
 	@keyframes blink {
 		0% {
 			opacity: 1;

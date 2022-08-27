@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner/Spinner'
 
 const Home: NextPage = () => {
 	return (
-		<div>
+		<>
 			<Head>
 				<title>Dobro Coffee</title>
 				<meta
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 			</main>
 
 			<footer></footer>
-		</div>
+		</>
 	)
 }
 
