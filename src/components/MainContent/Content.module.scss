@@ -67,6 +67,8 @@
 	}
 	@media screen and (max-width: 375px) {
 		z-index: 101;
+		min-height: 221px;
+		max-height: 200px;
 	}
 	&::-webkit-scrollbar {
 		width: 1px;

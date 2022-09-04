@@ -22,7 +22,6 @@ const Content = () => {
 					'https://wrapapi.com/use/alexjamison/homeit/cart/latest?wrapAPIKey=HCTPpA928xiR2xIr0ON2HkyaS8gKg4Lz'
 				const res = await axios.get(api_url)
 				const response = await res.data.data.coffee
-				console.log(response)
 				if (response === null) {
 					return setData([])
 				}
@@ -57,7 +56,7 @@ const Content = () => {
 				<div className={styles.blure}>
 					<div className={styles.container}>
 						{loading ? <Spinner /> : <CardList data={filterData} />}
-						{error ? <Error/> : <CardList data={filterData}/> }
+						{error ? <Error /> : <CardList data={filterData} />}
 					</div>
 				</div>
 			</div>
