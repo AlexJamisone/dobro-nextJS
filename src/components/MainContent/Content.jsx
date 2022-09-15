@@ -55,8 +55,8 @@ const Content = () => {
 			<div className={styles.center}>
 				<div className={styles.blure}>
 					<div className={styles.container}>
+						{error ? <Error /> : null}
 						{loading ? <Spinner /> : <CardList data={filterData} />}
-						{error ? <Error /> : <CardList data={filterData} />}
 					</div>
 				</div>
 			</div>
