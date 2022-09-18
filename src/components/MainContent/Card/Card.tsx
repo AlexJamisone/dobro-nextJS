@@ -24,7 +24,12 @@ const Card: FC<CardProps> = ({ data: { img, name, price } }) => {
 				width={91}
 				height={91}
 				alt={name}
-				className={styles.img}
+				className={styles.img} 
+				blurDataURL='iVBORw0KGgoAAAANSUhEUgAAAFIAAABSCAYAAADHLIObAAAAg0lEQVR42u3QQQEAQAQAsNPoGgojhHpC8NwiLH51PtZCpEiRIhEpUqRIRIoUiUiRIkUiUqRIkYgUKRKRIkWKRKRIkSIRKVIkIkWKFIlIkSIRKVKkSESKFCkSkSJFIlKkSJGIFClSJCJFikSkSJEiESlSpEiRIkWKRKRIkSIRKVIkIu8MRWynNVqlSaIAAAAASUVORK5CYII='
+				placeholder='blur'
+				
+				
+
 			/>
 			<p className={styles.name}>{name}</p>
 			<p className={styles.price}>{price}</p>
