@@ -1,6 +1,7 @@
 import Image from 'next/future/image'
 import { motion } from 'framer-motion'
 import styles from '../styles/tips.module.scss'
+import Head from 'next/head'
 
 
 
@@ -24,6 +25,10 @@ const TipsCard = () => {
 	]
 	return (
 		<div className={styles.container}>
+			<Head>
+				<title>Чаевые для Бариста</title>
+			
+			</Head>
 			{barista.map((person, index) => {
 				const { name, link, avatar } = person
 				return (
