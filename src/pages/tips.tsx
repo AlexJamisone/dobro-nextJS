@@ -33,6 +33,7 @@ const TipsCard = () => {
 				const { name, link, avatar } = person
 				return (
 					<motion.a
+						hrefLang={person.link}
 						initial={{ y: 100, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						whileHover={{ scale: 1.1 }}
