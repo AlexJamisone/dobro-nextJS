@@ -12,7 +12,6 @@ const SignIn = () => {
 		} else if (user === null) {
 			return
 		}
-		console.log('hit render sigin');
 	}, [])
 	return (
 		<>
