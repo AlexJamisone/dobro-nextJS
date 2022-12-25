@@ -11,8 +11,10 @@ import { RecaptchaVerifier } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth } from '../../firebase/clientApp'
 import { useAuth } from '../../context/AuthContext'
+import { useRouter } from 'next/router'
 
 const FormAuth = () => {
+	const router = useRouter()
 	const { signin } = useAuth()
 	const code = '+7'
 	const [phone, setPhone] = useState(code)
@@ -49,19 +51,11 @@ const FormAuth = () => {
             if(value.length === 6) {
                 let confirmationResult = window.confirmationResult
                 await confirmationResult.confirm(value)
+				router.push('/profile')
             }
         } catch (error) {
             console.log(error)
         }
-		// if (value.length === 6) {
-		// 	let confirmationResult = window.confirmationResult
-		// 	confirmationResult
-		// 		.confirm(value)
-		// 		.then((res) => {
-		// 			const user = res.user
-		// 		})
-		// 		.catch((err) => console.log(err))
-		// }
 	}
 	return (
 		<Center>

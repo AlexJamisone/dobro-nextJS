@@ -1,9 +1,19 @@
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import Auth from '../components/Auth/Auth'
+import { useAuth } from '../context/AuthContext'
 
-type Props = {}
-
-const SignIn = (props: Props) => {
+const SignIn = () => {
+	const { user } = useAuth()
+	const router = useRouter()
+	useEffect(() => {
+		if(user) {
+			router.push('/profile')
+		} else if (user === null) {
+			return
+		}
+		console.log('hit render sigin');
+	}, [])
 	return (
 		<>
 			<Auth />

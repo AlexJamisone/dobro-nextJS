@@ -41,14 +41,14 @@ const Navigation: NextPage = () => {
 			</Box>
 			{user ? (
 				<Link
-					href="signin"
+					href="/signin"
 				>
 					<Box as="a" mr={10} cursor="pointer" onClick={() => logout()}>
 						Sign Out
 					</Box>
 				</Link>
 			) : (
-				<Link href="signin">
+				<Link href="/signin">
 					<Box as="a" mr={10} cursor="pointer">
 						Sign In
 					</Box>
