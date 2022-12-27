@@ -1,26 +1,16 @@
-import base64 from 'base-64'
+import { baseCallApiPOST } from './api/baseCallApiPOST'
 import findBonus from './findBonus'
+import findTransition from './findTransition'
 
-
-export const findCustomers = async (phone: any) => {
-	const api_url: string =
-		'https://tp791.quickresto.ru/platform/online/bonuses/filterCustomers'
-	const response = await fetch(api_url, {
-		headers: new Headers({
-			Authorization: `Basic ${base64.encode(
-				`${process.env.QR_API_LOGIN}:${process.env.QR_API_PASSWORD}`
-			)}`,
-			'Content-Type': 'application/json',
-		}),
-		body: JSON.stringify({
-			search: phone,
-		}),
-		method: 'POST',
+export const findCustomers = async (phone: string) => {
+	const data = await baseCallApiPOST('/bonuses/filterCustomers', 'POST', {
+		search: phone,
 	})
-	const data = await response.json()
-	const tokensArr = data.customers.map((a: any) => a.tokens)
+	const tokensArr = await data.customers.map((a: any) => a.tokens)
 	const tokens: string = tokensArr[0][0].key
-    return findBonus(tokens)
+	const orderData = await findTransition(tokens)
+	console.log(orderData)
+	return findBonus(tokens)
 }
 
 export default findCustomers

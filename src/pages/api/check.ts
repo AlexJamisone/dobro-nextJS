@@ -1,27 +1,55 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import base64 from 'base-64'
+import { baseCallApiGET } from '../../utils/api/baseCallApiGET'
+
+interface CheckData {
+	name: string
+	amount: number
+	totalPrice: number
+}
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	try {
-		const objectId = 35183
-		const moduleName = 'front.orders'
-		const api_url = `https://tp791.quickresto.ru/platform/online/api/read?moduleName=${moduleName}&objectId=${objectId}`
-		const response = await fetch(api_url, {
-			headers: new Headers({
-				Authorization: `Basic ${base64.encode(
-					`${process.env.QR_API_LOGIN}:${process.env.QR_API_PASSWORD}`
-				)}`,
-				'Content-Type': 'application/json',
-			}),
-			method: 'GET',
-		})
-		console.log(api_url)
-		const data = await response.json()
-		res.status(200).json({ data })
+		const array = [32381, 32382, 32383]
+		const time = [
+			'2022-12-27T11:40:40.667Z',
+			'2022-12-29T11:40:37.739Z',
+			'2022-12-26T16:39:46.943Z',
+		]
+		const getOrder = async (arr: Array<number>, time: Array<string>) => {
+			return Promise.all(
+				arr.map(async (item) => {
+					try {
+						const moduleName = 'front.orders'
+						const data = await baseCallApiGET(
+							`/api/read?moduleName=${moduleName}&objectId=${item}`,
+							'GET'
+						)
+						const check = data.orderItemList.map(
+							({ name, amount, totalPrice }: CheckData) => {
+								return {
+									name,
+									amount,
+									totalPrice,
+								}
+							}
+						)
+						time.map(item => check.push(item))
+						
+						console.log(check)
+						return check
+					} catch (error) {
+						console.log(error)
+					}
+				})
+			)
+		}
+		const fetch = await getOrder(array, time)
+		console.log(fetch)
+		res.status(200).json(fetch)
 	} catch (error) {
-		console.log(error)
+		console.log('Here is error', error)
 	}
 }
