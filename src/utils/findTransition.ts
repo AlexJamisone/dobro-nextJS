@@ -20,7 +20,7 @@ export const findTransition = async (token: string) => {
 	const arrNum = spice.map((item: any) => parseInt(item))
 	const time = revers.slice(0, 11).map((item: any) => item.regTime)
 	console.log(time)
-	const orderData = await getOrder(arrNum)
+	const orderData = await getOrder(arrNum, time)
 	return orderData
 }
 
