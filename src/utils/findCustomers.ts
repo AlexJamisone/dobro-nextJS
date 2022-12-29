@@ -1,37 +1,43 @@
 import { baseCallApiPOST } from './api/baseCallApiPOST'
-import findBonus from './findBonus'
+import customerInfo from './customerInfo'
 import findTransition from './findTransition'
+import { CheckData } from './getOrder'
 
 interface Customers {
 	id: number
 	bonus: number
+	firstName: string
 	createTime: string
 	sex: string
 	token: string
 	saved: number
-	transactions: []
+	spent: number
+	transactions: CheckData[]
 }
 
 export const findCustomers = async (phone: string) => {
 	const data = await baseCallApiPOST('/bonuses/filterCustomers', 'POST', {
 		search: phone,
 	})
-	const tokensArr = await data.customers.map((item: any):Customers => {
-		return {
-			id: item.id,
-			bonus: item.accounts[0].accountBalance.ledger,
-			createTime: item.createTime,
-			saved: 1111,
-			token: item.tokens[0][0].key,
-			sex: item.sex,
-			transactions: []
-		}
-	})
-	// const tokens: string = tokensArr[0][0].key
-	// const orderData = await findTransition(tokens)
-	console.log(tokensArr)
+	const tokensArr = Promise.all(
+		await data.customers.map(async (item: any): Promise<Customers> => {
+			const { bonus, spent } = await customerInfo(item.id)
+			const { bonusesReceivedAllTime: saved, orderData: transactions } =
+				await findTransition(item.tokens[0].key)
+			return {
+				id: item.id,
+				firstName: item.firstName,
+				bonus,
+				createTime: item.createTime,
+				sex: item.sex,
+				token: item.tokens[0].key,
+				saved,
+				spent,
+				transactions,
+			}
+		})
+	)
 	return tokensArr
-	// return findBonus(tokens)
 }
 
 export default findCustomers

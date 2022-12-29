@@ -8,8 +8,7 @@ export default async function handler(
 	try {
 		const phone = req.body
 		const data = await findCustomers(phone)
-		console.log(data)
-		res.status(200).json({ successful: true, data })
+		res.status(200).json(data)
 	} catch (error) {
 		res.json({ message: 'You have no access', error })
 	}

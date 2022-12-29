@@ -10,11 +10,17 @@ export interface CheckData {
 	date: string
 	items: CheckDataApi
 	totalPrice: number
+	getBonus: number
+	wasPayBonus: boolean
+	paidBonus: number | null
 }
 
 export const getOrder = async (
 	arrOrderId: Array<number>,
-	time: Array<string>
+	time: Array<string>,
+	bonus: Array<number>,
+	wasPayBonus: Array<boolean>,
+	paidBonus: Array<number | null>
 ) => {
 	const check = await Promise.all(
 		arrOrderId.map(async (orderId) => {
@@ -39,7 +45,7 @@ export const getOrder = async (
 			}
 		})
 	)
-	const totalPrice = check.map((item: [], index: number) =>
+	const totalPrice = check.map((item: CheckDataApi[]) =>
 		item.reduce(
 			(acc: number, val: CheckDataApi) => (acc = acc + val.totalPrice),
 			0
@@ -49,6 +55,9 @@ export const getOrder = async (
 		(item: CheckDataApi, index: number): CheckData => ({
 			date: time[index],
 			totalPrice: totalPrice[index],
+			getBonus: bonus[index],
+			wasPayBonus: wasPayBonus[index],
+			paidBonus: paidBonus[index],
 			items: item,
 		})
 	)

@@ -3,13 +3,13 @@ import { useQuery } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
 import { useState } from 'react'
 const UserContent = () => {
-	const { user } = useAuth()
+	const { user: session } = useAuth()
 	const { data, isLoading } = useQuery('user', async () => {
 		const response = await fetch('api/searchClient', {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify("+79787046864"),
+			body: JSON.stringify('+79787046864'),
 			method: 'POST',
 		})
 		return await response.json()
@@ -23,7 +23,7 @@ const UserContent = () => {
 				</Center>
 			) : (
 				<Center>
-					<Text>Привет {data?.data?.firstName}</Text>
+					<Text>Привет </Text>
 				</Center>
 			)}
 		</>

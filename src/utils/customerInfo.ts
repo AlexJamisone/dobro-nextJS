@@ -9,10 +9,10 @@ export const customerInfo = async (id: number) => {
 	const bonus = await response.accounts.map(
 		(item: any) => item.accountBalance.ledger
 	)
-	const saved = await response.accumulationBalance.ledger
+	const spent = await response.accumulationBalance.ledger
 	return {
         bonus: parseInt(bonus.toString()),
-        saved
+        spent
     }
 }
 
