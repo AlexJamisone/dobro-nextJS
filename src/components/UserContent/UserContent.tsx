@@ -1,7 +1,9 @@
-import { Center, Text, Spinner } from '@chakra-ui/react'
+import { Center, Avatar } from '@chakra-ui/react'
 import { useQuery } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
-import { useState } from 'react'
+import SkeletonComponent from '../Skeleton/Sceleton'
+import UserAvatar from '../UserAvatar/UserAvatar'
+
 const UserContent = () => {
 	const { user: session } = useAuth()
 	const { data, isLoading } = useQuery('user', async () => {
@@ -18,13 +20,13 @@ const UserContent = () => {
 	return (
 		<>
 			{isLoading ? (
-				<Center>
-					<Spinner />
-				</Center>
+				<>
+					<SkeletonComponent />
+				</>
 			) : (
-				<Center>
-					<Text>Привет </Text>
-				</Center>
+				<>
+					<UserAvatar/>
+				</>
 			)}
 		</>
 	)
