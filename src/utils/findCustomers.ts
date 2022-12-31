@@ -2,18 +2,14 @@ import { baseCallApiPOST } from './api/baseCallApiPOST'
 import customerInfo from './customerInfo'
 import findTransition from './findTransition'
 import { CheckData } from './getOrder'
-import { db } from '../firebase/clientApp'
-import { doc, getDoc } from 'firebase/firestore'
+import { searchAvatar } from './baseAvatar'
+import { DocumentData } from 'firebase/firestore'
 
 interface Customers {
 	id: number
 	bonus: number
 	firstName: string
-	avatar: {
-		publicId: string | null
-		format: string | null
-		version: string | null
-	}
+	avatar: DocumentData | void
 	createTime: string
 	sex: string
 	token: string
@@ -28,17 +24,14 @@ export const findCustomers = async (phone: string) => {
 	})
 	const tokensArr = Promise.all(
 		await data.customers.map(async (item: any): Promise<Customers> => {
+			const avatar = await searchAvatar(item.id)
 			const { bonus, spent } = await customerInfo(item.id)
 			const { bonusesReceivedAllTime: saved, orderData: transactions } =
 				await findTransition(item.tokens[0].key)
 			return {
 				id: item.id,
 				firstName: item.firstName,
-				avatar: {
-					format: null,
-					publicId: null,
-					version: null,
-				},
+				avatar,
 				bonus,
 				createTime: item.createTime,
 				sex: item.sex,

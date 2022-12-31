@@ -25,7 +25,7 @@ const UserContent = () => {
 				</>
 			) : (
 				<>
-					<UserAvatar/>
+					<UserAvatar id={data[0].id}/>
 				</>
 			)}
 		</>

@@ -1,14 +1,20 @@
-import { IncomingForm } from 'formidable';
+import { IncomingForm, JSONParser } from 'formidable';
 
 export async function getImage(formData: any) {
 	const data: any = await new Promise((resolve, rejects) => {
 		const form = new IncomingForm({
 			keepExtensions: true,
+			multiples: true
 		});
 		form.parse(formData, (err, fields, files) => {
+			// console.log('field', fields)
+			// console.log('files', files)
 			if (err) return rejects(err);
-			resolve({ fields, files });
+			resolve({ fields, files});
 		});
 	});
-    return data.files.image
+    return {
+		image: data.files.image,
+		id: data.fields
+	}
 }
