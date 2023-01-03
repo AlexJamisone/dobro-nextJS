@@ -2,14 +2,14 @@ import { baseCallApiPOST } from './api/baseCallApiPOST'
 import customerInfo from './customerInfo'
 import findTransition from './findTransition'
 import { CheckData } from './getOrder'
-import { searchAvatar } from './baseAvatar'
-import { DocumentData } from 'firebase/firestore'
+import { createBaseAvatar } from './createBaseAvatar'
+import { Avatar } from '@prisma/client'
 
-interface Customers {
+export interface Customers {
 	id: number
 	bonus: number
 	firstName: string
-	avatar: DocumentData | void
+	avatar: Avatar | undefined
 	createTime: string
 	sex: string
 	token: string
@@ -24,7 +24,7 @@ export const findCustomers = async (phone: string) => {
 	})
 	const tokensArr = Promise.all(
 		await data.customers.map(async (item: any): Promise<Customers> => {
-			const avatar = await searchAvatar(item.id)
+			const avatar = await createBaseAvatar(item.id)
 			const { bonus, spent } = await customerInfo(item.id)
 			const { bonusesReceivedAllTime: saved, orderData: transactions } =
 				await findTransition(item.tokens[0].key)

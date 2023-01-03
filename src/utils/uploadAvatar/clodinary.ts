@@ -11,8 +11,8 @@ export function uploadImage(imageUloaded: any) {
 		cloudinary.uploader.upload(
 			imageUloaded,
 			{
-				width: 64,
-				height: 64,
+				width: 150,
+				height: 150,
 				crop: 'fill',
 			},
 			(err: any, res: any) => {

@@ -15,6 +15,6 @@ export async function getImage(formData: any) {
 	});
     return {
 		image: data.files.image,
-		id: data.fields
+		id: data.fields.id
 	}
 }

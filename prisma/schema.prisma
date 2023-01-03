@@ -1,18 +1,17 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-model Coffee {
-  id Int @unique
-  name String
-  description String?
-  imageUrl String
-  price Int
+model Avatar {
+    id       Int    @id
+    publicId String
+    format   String
+    version  String
 }
