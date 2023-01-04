@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../db/client'
 import { uploadImage } from '../../utils/uploadAvatar/clodinary'
 import { getImage } from '../../utils/uploadAvatar/formidable'
+import cloudinary from 'cloudinary'
 
 export const config = {
 	api: {
@@ -16,21 +17,22 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const {id, image} = await getImage(req)
-		const imageData: any = await uploadImage(image.filepath)
+		const { id, image } = await getImage(req)
 		const numID = parseInt(id)
-		console.log(numID);
+		const imageData: Promise<cloudinary.UploadApiResponse> =
+			await uploadImage(image.filepath, numID)
+		console.log(imageData)
 		const result = await prisma.avatar.update({
 			where: {
-				id: numID
+				id: numID,
 			},
 			data: {
-				format: imageData.format,
-				publicId: imageData.publicId,
-				version: imageData.version.toString()
-			}
+				format: (await imageData).format,
+				publicId: (await imageData).public_id,
+				version: (await imageData).version.toString(),
+			},
 		})
-		res.status(200).json({message: 'succecc', result})
+		res.status(200).json({ message: 'succecc', result })
 	} catch (error) {
 		console.log('in upload', error)
 	}

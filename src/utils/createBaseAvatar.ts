@@ -6,6 +6,12 @@ export const createBaseAvatar = async (id: number) => {
 			where: {
 				id,
 			},
+			select: {
+				id: true,
+				format: true,
+				publicId: true,
+				version: true
+			}
 		})
 		if (checkAvatar) {
 			return checkAvatar

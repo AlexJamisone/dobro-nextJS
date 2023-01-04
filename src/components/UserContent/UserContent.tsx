@@ -1,4 +1,4 @@
-import { Center, Avatar, Text } from '@chakra-ui/react'
+import { Center, Avatar, Text, Spinner } from '@chakra-ui/react'
 import { useQuery } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
 import { Customers } from '../../utils/findCustomers'
@@ -9,7 +9,7 @@ import 'moment/locale/ru'
 
 const UserContent = () => {
 	const { user: session } = useAuth()
-	const { data, isLoading } = useQuery(
+	const { data, isLoading, isRefetching } = useQuery(
 		'user',
 		async (): Promise<Customers[]> => {
 			const response = await fetch('api/searchClient', {
@@ -22,7 +22,7 @@ const UserContent = () => {
 			return await response.json()
 		}
 	)
-	console.log(data)
+	console.log(isRefetching)
 	return (
 		<>
 			{isLoading ? (
@@ -49,8 +49,7 @@ const UserContent = () => {
 								<Text>Привет {firstName}</Text>
 								<Text>У тебя сейчай {bonus} бонуса</Text>
 								<Text>
-									Ты с нами уже
-									{moment(createTime).fromNow(true)}
+									Ты с нами уже {moment(createTime).fromNow(true)}
 								</Text>
 							</Center>
 						)
