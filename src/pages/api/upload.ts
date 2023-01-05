@@ -19,7 +19,7 @@ export default async function handler(
 	try {
 		const { id, image } = await getImage(req)
 		const numID = parseInt(id)
-		const imageData: Promise<cloudinary.UploadApiResponse> =
+		const imageData: any =
 			await uploadImage(image.filepath, numID)
 		console.log(imageData)
 		const result = await prisma.avatar.update({
@@ -27,9 +27,9 @@ export default async function handler(
 				id: numID,
 			},
 			data: {
-				format: (await imageData).format,
-				publicId: (await imageData).public_id,
-				version: (await imageData).version.toString(),
+				format: imageData.format,
+				publicId: imageData.public_id,
+				version: imageData.version.toString(),
 			},
 		})
 		res.status(200).json({ message: 'succecc', result })

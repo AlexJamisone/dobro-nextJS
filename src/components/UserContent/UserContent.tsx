@@ -9,7 +9,7 @@ import 'moment/locale/ru'
 
 const UserContent = () => {
 	const { user: session } = useAuth()
-	const { data, isLoading, isRefetching } = useQuery(
+	const { data, isLoading, refetch  } = useQuery(
 		'user',
 		async (): Promise<Customers[]> => {
 			const response = await fetch('api/searchClient', {
@@ -22,7 +22,6 @@ const UserContent = () => {
 			return await response.json()
 		}
 	)
-	console.log(isRefetching)
 	return (
 		<>
 			{isLoading ? (
@@ -45,7 +44,7 @@ const UserContent = () => {
 							transactions,
 						}: Customers) => (
 							<Center key={id} flexDirection="column" gap={5}>
-								<UserAvatar id={id} avatar={avatar} />
+								<UserAvatar id={id} avatar={avatar} refetch={refetch} />
 								<Text>Привет {firstName}</Text>
 								<Text>У тебя сейчай {bonus} бонуса</Text>
 								<Text>
