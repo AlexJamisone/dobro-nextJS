@@ -6,6 +6,7 @@ import SkeletonComponent from '../Skeleton/Sceleton'
 import UserAvatar from '../UserAvatar/UserAvatar'
 import moment from 'moment'
 import 'moment/locale/ru'
+import CheckTable from '../CheckTable/CheckTable'
 
 const UserContent = () => {
 	const { user: session } = useAuth()
@@ -22,6 +23,7 @@ const UserContent = () => {
 			return await response.json()
 		}
 	)
+	console.log(data);
 	return (
 		<>
 			{isLoading ? (
@@ -50,6 +52,7 @@ const UserContent = () => {
 								<Text>
 									Ты с нами уже {moment(createTime).fromNow(true)}
 								</Text>
+								<CheckTable transactions={transactions}/>
 							</Center>
 						)
 					)}

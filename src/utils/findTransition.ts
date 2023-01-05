@@ -20,6 +20,7 @@ export const findTransition = async (token: string) => {
 		)
 		.slice(0, 10)
 
+
 	// get all uses bonus from user
 	const bonusesReceivedAllTime = data.transactions
 		.filter((item: any) => item.type === 'DEBIT_CONFIRMATION')
