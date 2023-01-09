@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { Box } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import UserContent from '../components/UserContent/UserContent'
 import { useAuth } from '../context/AuthContext'
-import { useRouter } from 'next/router'
 
 const Profile = () => {
 	const router = useRouter()
@@ -17,9 +18,9 @@ const Profile = () => {
 		return null
 	}
 	return (
-		<>
+		<Box>
 			<UserContent/>
-		</>
+		</Box>
 	)
 }
 export default Profile

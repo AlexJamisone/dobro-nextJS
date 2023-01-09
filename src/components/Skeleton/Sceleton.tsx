@@ -1,14 +1,10 @@
 import {
-    Avatar,
 	Center,
 	Skeleton,
 	SkeletonCircle,
 	SkeletonText,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { duration } from 'moment'
-
-
 
 const SkeletonComponent = () => {
 	return (
@@ -20,9 +16,9 @@ const SkeletonComponent = () => {
 				gap={10}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1, type: 'spring' }}
-                transition='all .5 linear'
+				transition="all .5 linear"
 			>
-				<SkeletonCircle size="64px"/>
+				<SkeletonCircle size="64px" />
 				<SkeletonText
 					width="25%"
 					textAlign="center"
@@ -31,11 +27,7 @@ const SkeletonComponent = () => {
 					spacing="5"
 					skeletonHeight="3"
 				/>
-				<Skeleton
-					height="20%"
-					width="50%"
-					h="300"
-				/>
+				<Skeleton height="20%" width="50%" h="300" />
 			</Center>
 		</>
 	)

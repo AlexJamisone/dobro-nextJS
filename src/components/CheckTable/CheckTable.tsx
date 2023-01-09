@@ -1,17 +1,4 @@
-import {
-	Table,
-	Thead,
-	Tbody,
-	Tfoot,
-	Tr,
-	Th,
-	Td,
-	TableCaption,
-	TableContainer,
-	Center,
-	Stack,
-	Box,
-} from '@chakra-ui/react'
+import { Box, Tooltip, Grid, GridItem, Text } from '@chakra-ui/react'
 import { CheckData } from '../../utils/getOrder'
 import moment from 'moment'
 
@@ -21,66 +8,85 @@ interface CheckTableProps {
 
 const CheckTable = ({ transactions }: CheckTableProps) => {
 	return (
-		<TableContainer>
-			<Table size="sm" variant="striped">
-				<Thead>
-					<Tr>
-						<Th>Дата</Th>
-						<Th textAlign="left">Чек</Th>
-						<Th>Сумма Чека</Th>
-						<Th>Оплачено Бонусами</Th>
-						<Th>Кэшбэк</Th>
-						{/* <Th>Списание</Th> */}
-					</Tr>
-				</Thead>
-				<Tbody>
-					{transactions.map(
-						(
-							{
-								date,
-								getBonus,
-								items,
-								paidBonus,
-								totalPrice,
-								wasPayBonus,
-							},
-							index
-						) => (
-							<Tr key={index}>
-								<Td textAlign="left">
-									{moment(date).format('lll')}
-								</Td>
-								<Td
-									display="flex"
-									justifyContent="left"
-									flexWrap="wrap"
-									gap={3}
-									p={3}
+		<Box
+			display="flex"
+			flexDirection="column"
+			w={['100%', '75%', null, '50%']}
+		>
+			<Grid
+				templateColumns="repeat(5, 1fr)"
+				m={3}
+				gap={5}
+				justifyItems="center"
+				alignItems="center"
+				fontSize={13}
+				cursor='default'
+			>
+				<GridItem>Дата</GridItem>
+				<GridItem>Чек</GridItem>
+				<GridItem>Сумма</GridItem>
+				<GridItem>Оплачено Бонусами</GridItem>
+				<GridItem>Кэшбэк</GridItem>
+			</Grid>
+			<Box
+				overflowY={['scroll', null, null, 'hidden']}
+				height={['280px', null, null, '100vh']}
+			>
+				{transactions.map(
+					({
+						date,
+						getBonus,
+						items,
+						paidBonus,
+						totalPrice,
+						wasPayBonus,
+					}) => (
+						<Grid
+							templateColumns="repeat(5, 1fr)"
+							alignItems="center"
+							textAlign="center"
+							m={3}
+							fontSize={[11, 12, 13, 14]}
+							lineHeight={1.2}
+							key={date}
+							border={
+								wasPayBonus
+									? '1px solid teal'
+									: '1px solid white'
+							}
+							rounded="2xl"
+							cursor="pointer"
+							p={1}
+						>
+							<GridItem>
+								<Tooltip
+									label={moment(date).format('LT')}
+									placement="top"
 								>
-									{items.map(
-										(
-											{ amount, name, totalPrice },
-											index
-										) => (
-											<Center key={index} display="flex">
-												{`x${amount} `}
-												{name}
-											</Center>
-										)
-									)}
-								</Td>
-								<Td textAlign="center">{totalPrice}</Td>
-								<Td textAlign="center">{paidBonus}</Td>
-								<Td textAlign="center">{getBonus}</Td>
-								{/* <Td textAlign="center">
-									{wasPayBonus ? '✔' : '❌'}
-								</Td> */}
-							</Tr>
-						)
-					)}
-				</Tbody>
-			</Table>
-		</TableContainer>
+									<Text>{moment(date).format('L')}</Text>
+								</Tooltip>
+							</GridItem>
+							<GridItem>
+								{items.map(
+									({ name, amount, totalPrice }, index) => (
+										<Box key={index} display="flex">
+											<Tooltip label={totalPrice}>
+												<Text
+													p={0.4}
+												>{`×${amount} ${name}`}</Text>
+											</Tooltip>
+										</Box>
+									)
+								)}
+							</GridItem>
+							<GridItem>{totalPrice} ₽</GridItem>
+							<GridItem>{paidBonus ? paidBonus : 0} ₽</GridItem>
+							<GridItem>{getBonus} ₽</GridItem>
+						</Grid>
+					)
+				)}
+			</Box>
+		</Box>
 	)
 }
 

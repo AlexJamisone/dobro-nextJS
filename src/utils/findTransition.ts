@@ -1,5 +1,5 @@
 import { baseCallApiPOST } from './api/baseCallApiPOST'
-import { compact } from 'lodash'
+import { compact, reverse } from 'lodash'
 import { getOrder } from './getOrder'
 export const findTransition = async (token: string) => {
 	const data = await baseCallApiPOST('/bonuses/operationHistory', 'POST', {
@@ -12,13 +12,16 @@ export const findTransition = async (token: string) => {
 	})
 
 	// revers check
-	const revers = data.transactions.reverse()
-	const lastCheck = revers
+	const array = await data.transactions
+	// const revers = reverse(array)
+	const lastCheck = array
+		.sort((a: any, b: any) => a.regTime.localeCompare(b.regTime))
 		.filter(
 			(item: any) =>
 				item.type === 'CREDIT' || item.type === 'DEBIT_CONFIRMATION'
 		)
-		.slice(0, 10)
+		.slice(-5)
+		.reverse()
 
 
 	// get all uses bonus from user

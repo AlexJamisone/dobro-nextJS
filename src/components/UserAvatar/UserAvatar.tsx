@@ -52,12 +52,12 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				display="none"
 			/>
 			{loading ? (
-				<Spinner size='xl' />
+				<Spinner size={['md','xl']} />
 			) : (
 				<AvatarIcon
 					as="label"
 					htmlFor="upload"
-					size="lg"
+					size={['md',"lg"]}
 					cursor="pointer"
 					src={`https://res.cloudinary.com/dzbwliwhr/v${avatar?.version}/${avatar?.publicId}.${avatar?.format}`}
 				/>

@@ -5,8 +5,6 @@ import SearchBar from '../SearchBar/SearchBar'
 import Spinner from '../Spinner/Spinner'
 import CardList from './CadrList/CardList'
 
-import styles from './Content.module.scss'
-
 const Content = () => {
 	const [data, setData] = useState([])
 	const [filterData, setFilterData] = useState(data)
@@ -52,9 +50,9 @@ const Content = () => {
 	return (
 		<>
 			<SearchBar onChengeHendler={onSearchChange} />
-			<div className={styles.center}>
-				<div className={styles.blure}>
-					<div className={styles.container}>
+			<div>
+				<div>
+					<div>
 						{error ? <Error /> : null}
 						{loading ? <Spinner /> : <CardList data={filterData} />}
 					</div>

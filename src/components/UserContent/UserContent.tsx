@@ -10,7 +10,7 @@ import CheckTable from '../CheckTable/CheckTable'
 
 const UserContent = () => {
 	const { user: session } = useAuth()
-	const { data, isLoading, refetch  } = useQuery(
+	const { data, isLoading, refetch } = useQuery(
 		'user',
 		async (): Promise<Customers[]> => {
 			const response = await fetch('api/searchClient', {
@@ -23,7 +23,7 @@ const UserContent = () => {
 			return await response.json()
 		}
 	)
-	console.log(data);
+	console.log(data)
 	return (
 		<>
 			{isLoading ? (
@@ -39,20 +39,26 @@ const UserContent = () => {
 							firstName,
 							avatar,
 							createTime,
-							sex,
-							token,
-							saved,
-							spent,
 							transactions,
 						}: Customers) => (
-							<Center key={id} flexDirection="column" gap={5}>
-								<UserAvatar id={id} avatar={avatar} refetch={refetch} />
+							<Center
+								key={id}
+								flexDirection="column"
+								gap={5}
+								justifyContent="center"
+								alignItems='center'
+							>
+								<UserAvatar
+									id={id}
+									avatar={avatar}
+									refetch={refetch}
+								/>
 								<Text>Привет {firstName}</Text>
 								<Text>У тебя сейчай {bonus} бонуса</Text>
 								<Text>
 									Ты с нами уже {moment(createTime).fromNow(true)}
 								</Text>
-								<CheckTable transactions={transactions}/>
+								<CheckTable transactions={transactions} />
 							</Center>
 						)
 					)}
