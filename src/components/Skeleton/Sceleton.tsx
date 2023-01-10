@@ -13,21 +13,22 @@ const SkeletonComponent = () => {
 				as={motion.div}
 				mt={5}
 				flexDirection="column"
-				gap={10}
+				gap={8}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1, type: 'spring' }}
 				transition="all .5 linear"
 			>
-				<SkeletonCircle size="64px" />
+				<SkeletonCircle size={['48px', '68px']} />
 				<SkeletonText
-					width="25%"
+					width={['80%', '25%']}
 					textAlign="center"
-					mt="4"
+					mt={['0', '4']}
 					noOfLines={4}
-					spacing="5"
+					spacing={['4', '5']}
 					skeletonHeight="3"
 				/>
-				<Skeleton height="20%" width="50%" h="300" />
+				<Skeleton height={['50px', '']} width={['90%', '50%']} />
+				<Skeleton height={['100vh', '']} width={['90%', '50%']} />
 			</Center>
 		</>
 	)

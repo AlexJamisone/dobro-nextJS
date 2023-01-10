@@ -20,7 +20,7 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 				justifyItems="center"
 				alignItems="center"
 				fontSize={13}
-				cursor='default'
+				cursor="default"
 			>
 				<GridItem>Дата</GridItem>
 				<GridItem>Чек</GridItem>
@@ -29,8 +29,8 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 				<GridItem>Кэшбэк</GridItem>
 			</Grid>
 			<Box
-				overflowY={['scroll', null, null, 'hidden']}
-				height={['280px', null, null, '100vh']}
+				overflowY={['scroll', null, 'scroll', 'hidden']}
+				height={['280px', null, '280px', '100vh']}
 			>
 				{transactions.map(
 					({
@@ -69,9 +69,12 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 							<GridItem>
 								{items.map(
 									({ name, amount, totalPrice }, index) => (
-										<Box key={index} display="flex">
+										<Box
+											key={index}
+										>
 											<Tooltip label={totalPrice}>
 												<Text
+													textAlign='left'
 													p={0.4}
 												>{`×${amount} ${name}`}</Text>
 											</Tooltip>

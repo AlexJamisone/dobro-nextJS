@@ -1,13 +1,15 @@
 import styles from './Logo.module.scss'
+import { Icon } from '@chakra-ui/react'
 
 const Logo = () => {
 	return (
 		<>
-			<svg
+			<Icon
+				_dark={{ path: { fill: '#FFF7F2' } }}
 				width="283"
 				height="120"
 				viewBox="0 0 283 120"
-				fill="none"
+				fill="#fff"
 				xmlns="http://www.w3.org/2000/svg"
 				className={styles.svg}
 			>
@@ -63,7 +65,7 @@ const Logo = () => {
 					d="M261.512 75.1223C261.512 75.1689 261.512 75.2155 261.512 75.2155H271.638C271.638 75.0757 271.638 74.9359 271.638 74.7961C271.638 58.4388 261.037 47.301 245.397 47.301C230.422 47.301 218.585 57.6 218.394 75.2155H228.425C228.473 65.1029 233.512 54.5709 245.206 54.5709C256.901 54.6175 261.512 66.0815 261.512 75.1223Z"
 					fill="#0D0802"
 				/>
-			</svg>
+			</Icon>
 		</>
 	)
 }

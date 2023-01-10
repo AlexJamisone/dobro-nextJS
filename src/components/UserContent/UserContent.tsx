@@ -23,7 +23,6 @@ const UserContent = () => {
 			return await response.json()
 		}
 	)
-	console.log(data)
 	return (
 		<>
 			{isLoading ? (
