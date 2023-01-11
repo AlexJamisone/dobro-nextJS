@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 								overflow="hidden"
 								width="100vw"
 								height="100vh"
+								fontFamily={`'Unbounded', cursive`}
 							>
 								<Navigation />
 								<Component {...pageProps} />

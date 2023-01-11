@@ -12,6 +12,7 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 			display="flex"
 			flexDirection="column"
 			w={['100%', '75%', null, '50%']}
+			textAlign="center"
 		>
 			<Grid
 				templateColumns="repeat(5, 1fr)"
@@ -19,7 +20,7 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 				gap={5}
 				justifyItems="center"
 				alignItems="center"
-				fontSize={13}
+				fontSize={[10, 12, 14]}
 				cursor="default"
 			>
 				<GridItem>Дата</GridItem>
@@ -44,16 +45,21 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 						<Grid
 							templateColumns="repeat(5, 1fr)"
 							alignItems="center"
-							textAlign="center"
 							m={3}
-							fontSize={[11, 12, 13, 14]}
+							gap={1}
+							fontSize={[9, 10, 12]}
 							lineHeight={1.2}
 							key={date}
 							border={
 								wasPayBonus
-									? '1px solid teal'
-									: '1px solid white'
+									? '2px solid teal'
+									: '1px solid black'
 							}
+							_dark={{
+								border: wasPayBonus
+									? '2px solid teal'
+									: '1px solid white',
+							}}
 							rounded="2xl"
 							cursor="pointer"
 							p={1}
@@ -69,12 +75,10 @@ const CheckTable = ({ transactions }: CheckTableProps) => {
 							<GridItem>
 								{items.map(
 									({ name, amount, totalPrice }, index) => (
-										<Box
-											key={index}
-										>
+										<Box key={index}>
 											<Tooltip label={totalPrice}>
 												<Text
-													textAlign='left'
+													textAlign="left"
 													p={0.4}
 												>{`×${amount} ${name}`}</Text>
 											</Tooltip>
