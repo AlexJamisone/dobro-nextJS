@@ -49,7 +49,7 @@ const Content = () => {
 
 	return (
 		<>
-			<SearchBar onChengeHendler={onSearchChange} />
+			<SearchBar onChangeHandler={onSearchChange} />
 			<div>
 				<div>
 					<div>

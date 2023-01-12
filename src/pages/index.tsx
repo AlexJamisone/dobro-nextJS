@@ -1,6 +1,6 @@
+import { Box, Center } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import LinkToApp from '../components/LinkToApp/LinkToApp'
 import Content from '../components/MainContent/Content'
 const Home: NextPage = () => {
 	return (
@@ -18,12 +18,11 @@ const Home: NextPage = () => {
 				<link rel="icon" href="favicon.png" />
 			</Head>
 
-			<main>
+			<Center as="main" flexDirection="column">
 				<Content />
-			</main>
+			</Center>
 
 			<footer>
-				<LinkToApp />
 			</footer>
 		</>
 	)

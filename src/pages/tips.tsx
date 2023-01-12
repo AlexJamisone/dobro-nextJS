@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import { Link, Box, Avatar, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Head from 'next/head'
 
@@ -6,28 +6,36 @@ const TipsCard = () => {
 	const barista = [
 		{
 			name: 'Саша',
-			link: process.env.SASH_TINKOFF,
+			link: 'https://www.tinkoff.ru/cf/142W441ULA3',
 			avatar: '/static/avatar/sasha.png',
 		},
 		{
 			name: 'Оля',
-			link: process.env.OLI_TINKOFF,
+			link: 'https://www.tinkoff.ru/cf/7dzSVcZ5gpW',
 			avatar: '/static/avatar/oli.png',
 		},
 		{
 			name: 'Лёша',
-			link: process.env.ALEX_TINKOFF,
+			link: 'https://www.tinkoff.ru/cf/5Y94azSjVDD',
 			avatar: '/static/avatar/alex.png',
 		},
 	]
 	return (
-		<div>
+		<Box
+			display="flex"
+			flexWrap="wrap"
+			justifyContent="center"
+			textAlign="center"
+			gap={10}
+			mt={20}
+		>
 			<Head>
 				<title>Чаевые для Бариста</title>
 			</Head>
 			{barista.map(({ name, avatar, link }, index) => {
 				return (
-					<motion.a
+					<Box
+						as={motion.a}
 						hrefLang={link}
 						initial={{ y: 100, opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
@@ -37,18 +45,18 @@ const TipsCard = () => {
 						target="_blank"
 						rel="noreferrer"
 						key={index}
+						cursor="pointer"
+						mx={3}
 					>
-						<Image
-							width={250}
-							height={260}
+						<Avatar
+							size={['xl', '2xl']}
 							src={avatar}
-							alt={`${name}`}
 						/>
-						<h1>{name}</h1>
-					</motion.a>
+						<Text mt={1}>{name}</Text>
+					</Box>
 				)
 			})}
-		</div>
+		</Box>
 	)
 }
 
