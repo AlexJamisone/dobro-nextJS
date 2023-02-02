@@ -14,9 +14,15 @@ const CardList: FC<CardListP> = ({ data }) => {
 			mx={[3, 0]}
 			gap={[5]}
 			overflowY="scroll"
-			
-			height={['440px','450px']}
+			overflowX="hidden"
+			height={['440px', '450px']}
 			mt={17}
+			sx={{
+				'::-webkit-scrollbar': {
+					display: 'none',
+				},
+			}}
+			w={[300,417]}
 		>
 			{data.map((item, index) => (
 				<Card key={index} data={item} />

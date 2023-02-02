@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Center, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Logo from '../Logo/Logo'
@@ -8,46 +8,57 @@ const Menu = () => {
 	const { user, logout } = useAuth()
 	return (
 		<Box
-			as={motion.nav}
+			as='nav'
+			w="100%"
 			display="flex"
-			flex="2 1"
-			justifyContent="center"
 			alignItems="center"
-			gap={20}
-			initial={false}
 		>
-			<Link href="/">Coffee</Link>
-			<Link href="/">
-				<motion.div
-					initial={{ opacity: 0, y: '100%' }}
-					animate={{ opacity: 1, y: '0' }}
-					transition={{ delay: 0.5 }}
-					style={{
-						cursor: 'pointer',
-					}}
-				>
-					<Logo />
-				</motion.div>
-			</Link>
-			<Link href="yandex">Yandex</Link>
-			{user ? (
-				<Link href="/signin">
-					<Box
-						as="a"
-						mr={10}
-						cursor="pointer"
-						onClick={() => logout()}
+			<Center flex={10} gap={20}>
+				<Link href="/">
+					Кофе
+				</Link>
+				<Link href="/">
+					<motion.div
+						initial={{ opacity: 0, y: '100%' }}
+						animate={{ opacity: 1, y: '0' }}
+						transition={{ delay: 0.5 }}
+						style={{
+							cursor: 'pointer',
+						}}
 					>
-						Sign Out
-					</Box>
+						<Logo />
+					</motion.div>
 				</Link>
-			) : (
-				<Link href="/signin">
-					<Box as="a" mr={10} cursor="pointer">
-						Sign In
-					</Box>
-				</Link>
-			)}
+				<Link href="yandex">Яндекс.Отзывы</Link>
+			</Center>
+				{user ? (
+					<Center gap={10} mx={10} flex={1} >
+						<Link href="/profile">
+							<Box
+								as="a"
+								cursor="pointer"
+								onClick={() => logout()}
+							>
+								Профиль
+							</Box>
+						</Link>
+						<Link href="/signin">
+							<Box
+								as="a"
+								cursor="pointer"
+								onClick={() => logout()}
+							>
+								Выйти
+							</Box>
+						</Link>
+					</Center>
+				) : (
+					<Link href="/signin">
+						<Box as="a" mr={10} cursor="pointer">
+							Войти
+						</Box>
+					</Link>
+				)}
 		</Box>
 	)
 }

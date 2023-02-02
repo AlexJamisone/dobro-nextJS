@@ -13,14 +13,14 @@ export type CardProps = {
 const Card = ({ data: { img, name, price } }: CardProps) => {
 	return (
 		<Box
+			className='scroll'
 			as={motion.div}
 			initial={{ opacity: 0, y: 50 }}
 			animate={{ opacity: 1, y: 0 }}
 			display="flex"
 			alignItems="center"
 			justifyContent='space-between'
-			px={[5,5]}
-			mx={[5]}
+			p={2}
 			border="1px solid black"
 			_dark={{
 				border: '1px solid white',
@@ -29,6 +29,7 @@ const Card = ({ data: { img, name, price } }: CardProps) => {
 			cursor='pointer'
 			fontSize={[10, 16]}
 			lineHeight={1}
+			w={['100%']}
 		>
 			<Image
 				src={img}

@@ -51,7 +51,7 @@ const BurgerMenu = () => {
 				<DrawerContent>
 					<DrawerCloseButton />
 					<DrawerHeader display="flex" gap={10} alignItems="center">
-						<Text>Menu</Text>
+						<Text>Меню</Text>
 						<IconButton
 							onClick={toggleColorMode}
 							aria-label="change color"
@@ -71,21 +71,21 @@ const BurgerMenu = () => {
 							gap={5}
 							onClick={onClose}
 						>
-							<Link href="/">Coffee</Link>
-							<Link href="/tips">Tips</Link>
+							<Link href="/">Кофе</Link>
+							<Link href="/tips">Чаевые</Link>
 							<Link href="/yandex">Яндекс.Отзывы</Link>
 							{user ? (
 								<>
 									<Link href="/profile">
-										<Box as="a">Profile</Box>
+										<Box as="a">Профиль</Box>
 									</Link>
 									<Link href="/signin">
 										<Box
 											as="a"
 											cursor="pointer"
-											onClick={() => logout()}
+											// onClick={() => logout()}
 										>
-											Sign Out
+											Выход
 										</Box>
 									</Link>
 								</>

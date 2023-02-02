@@ -1,8 +1,8 @@
+import { Spinner } from '@chakra-ui/react'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Error from '../Error/Error'
 import SearchBar from '../SearchBar/SearchBar'
-import Spinner from '../Spinner/Spinner'
 import CardList from './CadrList/CardList'
 
 const Content = () => {
@@ -50,14 +50,14 @@ const Content = () => {
 	return (
 		<>
 			<SearchBar onChangeHandler={onSearchChange} />
-			<div>
-				<div>
-					<div>
-						{error ? <Error /> : null}
-						{loading ? <Spinner /> : <CardList data={filterData} />}
-					</div>
-				</div>
-			</div>
+			<>
+				{error ? <Error /> : null}
+				{loading ? (
+					<Spinner size={['md', 'lg', 'xl']} />
+				) : (
+					<CardList data={filterData} />
+				)}
+			</>
 		</>
 	)
 }

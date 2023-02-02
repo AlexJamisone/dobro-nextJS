@@ -1,5 +1,7 @@
-import { Box, Center } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
 import type { NextPage } from 'next'
+import { getApp, getApps, initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 import Head from 'next/head'
 import Content from '../components/MainContent/Content'
 const Home: NextPage = () => {
@@ -22,8 +24,7 @@ const Home: NextPage = () => {
 				<Content />
 			</Center>
 
-			<footer>
-			</footer>
+			<footer></footer>
 		</>
 	)
 }
