@@ -1,4 +1,4 @@
-import baseCallApiGET from './api/baseCallApiGET'
+import baseCallApiGET from './api/baseCallApi'
 
 export interface CheckDataApi {
 	name: string
@@ -47,8 +47,7 @@ export const getOrder = async (
 	)
 	const totalPrice = check.map((item: CheckDataApi[]) =>
 		item.reduce(
-			(acc: number, val: CheckDataApi) =>
-				(acc = acc + val.totalPrice),
+			(acc: number, val: CheckDataApi) => (acc = acc + val.totalPrice),
 			0
 		)
 	)

@@ -1,10 +1,11 @@
-import { baseCallApiPOST } from './api/baseCallApiPOST'
-import { compact, reverse } from 'lodash'
+import { baseCallApi } from './api/baseCallApi'
+import { compact } from 'lodash'
 import { getOrder } from './getOrder'
-export const findTransition = async (token: string) => {
-	const data = await baseCallApiPOST('/bonuses/operationHistory', 'POST', {
+export const findTransition = async (phone: string) => {
+	const data = await baseCallApi('/bonuses/operationHistory', 'POST', {
 		customerToken: {
-			key: token,
+			type: "phone",
+			key: phone
 		},
 		accountType: {
 			accountGuid: 'bonus_account_type-1',
@@ -22,7 +23,6 @@ export const findTransition = async (token: string) => {
 		)
 		.slice(-5)
 		.reverse()
-
 
 	// get all uses bonus from user
 	const bonusesReceivedAllTime = data.transactions

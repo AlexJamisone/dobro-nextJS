@@ -1,4 +1,4 @@
-import baseCallApiGET from './api/baseCallApiGET'
+import baseCallApiGET from './api/baseCallApi'
 
 export const customerInfo = async (id: number) => {
 	const moduleName = 'crm.customer'
@@ -11,9 +11,9 @@ export const customerInfo = async (id: number) => {
 	)
 	const spent = await response.accumulationBalance.ledger
 	return {
-        bonus: parseInt(bonus.toString()),
-        spent
-    }
+		bonus: parseInt(bonus.toString()),
+		spent,
+	}
 }
 
 export default customerInfo

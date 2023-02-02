@@ -4,6 +4,8 @@ import { getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import Head from 'next/head'
 import Content from '../components/MainContent/Content'
+
+
 const Home: NextPage = () => {
 	return (
 		<>
