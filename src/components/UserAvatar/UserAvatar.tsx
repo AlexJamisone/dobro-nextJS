@@ -6,10 +6,10 @@ import { QueryObserverResult } from 'react-query'
 interface UserAvatarProps {
 	id: number
 	avatar: Avatar | undefined
-	// refetch: () => Promise<QueryObserverResult>
+	refetch: () => Promise<QueryObserverResult>
 }
 
-const UserAvatar = ({ id, avatar }: UserAvatarProps) => {
+const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 	const [imgUpload, setImgUpload] = useState<File>()
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
@@ -36,7 +36,7 @@ const UserAvatar = ({ id, avatar }: UserAvatarProps) => {
 				body: formData,
 			})
 			setImgUpload(undefined)
-			// await refetch()
+			await refetch()
 			setLoading(false)
 		} catch (error) {
 			console.log(error)

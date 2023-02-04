@@ -37,7 +37,6 @@ const Menu = () => {
 							<Box
 								as="a"
 								cursor="pointer"
-								onClick={() => logout()}
 							>
 								Профиль
 							</Box>

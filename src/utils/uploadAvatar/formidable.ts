@@ -7,8 +7,6 @@ export async function getImage(formData: any) {
 			multiples: true
 		});
 		form.parse(formData, (err, fields, files) => {
-			// console.log('field', fields)
-			// console.log('files', files)
 			if (err) return rejects(err);
 			resolve({ fields, files});
 		});

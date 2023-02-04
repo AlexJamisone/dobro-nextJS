@@ -7,8 +7,7 @@ export default async function handler(
 ) {
 	try {
 		const phone = req.body
-		const data = await findCustomers("+79780616352")
-		console.log(data)
+		const data = await findCustomers(phone)
 		res.status(200).json(data)
 	} catch (error) {
 		console.log(error)

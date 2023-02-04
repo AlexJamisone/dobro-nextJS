@@ -11,6 +11,7 @@ const Content = () => {
 	const [search, setSearch] = useState('')
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(false)
+	const [failure, setFailure] = useState(false)
 
 	useEffect(() => {
 		async function getData() {
@@ -39,7 +40,13 @@ const Content = () => {
 		const newFilterData = data.filter((item) => {
 			return item.name.toLocaleLowerCase().includes(search)
 		})
-		setFilterData(newFilterData)
+		if (newFilterData.length === 0) {
+			setFailure(true)
+			setFilterData(newFilterData)
+		} else {
+			setFailure(false)
+			setFilterData(newFilterData)
+		}
 	}, [data, search])
 
 	const onSearchChange = (e) => {
@@ -49,7 +56,7 @@ const Content = () => {
 
 	return (
 		<>
-			<SearchBar onChangeHandler={onSearchChange} />
+			<SearchBar onChangeHandler={onSearchChange} failure={failure}/>
 			<>
 				{error ? <Error /> : null}
 				{loading ? (

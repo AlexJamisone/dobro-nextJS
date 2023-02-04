@@ -13,20 +13,20 @@ export type CardProps = {
 const Card = ({ data: { img, name, price } }: CardProps) => {
 	return (
 		<Box
-			className='scroll'
+			className="scroll"
 			as={motion.div}
 			initial={{ opacity: 0, y: 50 }}
 			animate={{ opacity: 1, y: 0 }}
 			display="flex"
 			alignItems="center"
-			justifyContent='space-between'
+			justifyContent="space-between"
 			p={2}
 			border="1px solid black"
 			_dark={{
 				border: '1px solid white',
 			}}
-			rounded='3xl'
-			cursor='pointer'
+			rounded="3xl"
+			cursor="pointer"
 			fontSize={[10, 16]}
 			lineHeight={1}
 			w={['100%']}
@@ -40,7 +40,7 @@ const Card = ({ data: { img, name, price } }: CardProps) => {
 				unoptimized={true}
 			/>
 			<Text>{name}</Text>
-			<Text>{price}</Text>
+			<Text w={['50px', '75px']}>{price}</Text>
 		</Box>
 	)
 }

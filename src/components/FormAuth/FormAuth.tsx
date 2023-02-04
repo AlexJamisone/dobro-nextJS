@@ -6,19 +6,30 @@ import {
 	PinInput,
 	PinInputField,
 	Button,
+	useToast,
+	InputLeftElement,
+	InputGroup,
+	FormControl,
+	FormErrorMessage,
+	Icon,
 } from '@chakra-ui/react'
 import { RecaptchaVerifier } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth } from '../../firebase/clientApp'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
+import { BsFillTelephoneFill } from 'react-icons/bs'
+import { motion } from 'framer-motion'
 
 const FormAuth = () => {
+	const toast = useToast()
 	const router = useRouter()
 	const { signin } = useAuth()
-	const code = '+7'
-	const [phone, setPhone] = useState(code)
-	const [pin, setPin] = useState(false)
+	const code: string = '+7'
+	const [phone, setPhone] = useState<number | null>(null)
+	const [pin, setPin] = useState<boolean>(false)
+	const [error, setError] = useState<boolean>(false)
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const generateRecapcha = () => {
 		window.recaptchaVerifier = new RecaptchaVerifier(
@@ -34,59 +45,112 @@ const FormAuth = () => {
 	const requestCode = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		try {
-			if (phone.length >= 12) {
+			setLoading(true)
+			const phoneNumber: string = code + phone?.toString()
+			const phoneInput = phone?.toString()
+			console.log(phoneInput)
+			if (phoneInput === undefined) {
+				setError(true)
+				setLoading(false)
+			} else if (phoneNumber.length === 12) {
 				generateRecapcha()
 				let appVerifier = window.recaptchaVerifier
-				const res = await signin(auth, phone, appVerifier)
+				const res = await signin(auth, phoneNumber, appVerifier)
 				window.confirmationResult = res
+				toast({
+					title: `SMS была отправлена на номер ${phoneNumber}`,
+					status: 'success',
+					isClosable: true,
+					duration: 4000,
+				})
 				setPin(true)
+				setLoading(false)
+			}
+		} catch (error) {
+			toast({
+				title: 'Похоже без VPN не получится зайти, прости :(',
+				status: 'warning',
+				isClosable: true,
+				duration: 6000,
+			})
+			console.log(error)
+		}
+	}
+
+	const verifyOTP = async (value: string) => {
+		try {
+			if (value.length === 6) {
+				let confirmationResult = window.confirmationResult
+				await confirmationResult.confirm(value)
+				router.push('/profile')
 			}
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
-	const verifyOTP = async (value: string) => {
-        try {
-            if(value.length === 6) {
-                let confirmationResult = window.confirmationResult
-                await confirmationResult.confirm(value)
-				router.push('/profile')
-            }
-        } catch (error) {
-            console.log(error)
-        }
-	}
 	return (
-		<Center>
+		<Center
+			mt={10}
+			as={motion.div}
+			initial={{ y: 100, opacity: 0 }}
+			animate={{ y: 0, opacity: 1, type: "spring" }}
+			transitionDuration='1.5s'
+		>
 			<Box
 				as="form"
 				display="flex"
 				flexDirection="column"
 				justifyContent="center"
-				gap={3}
+				gap={7}
 				w={300}
 				alignItems="center"
 				onSubmit={requestCode}
 			>
-				<FormLabel>Телефон</FormLabel>
-				<Input
-					zIndex={1000}
-					type="tel"
-					value={phone}
-					onChange={(e) => {
-						e.preventDefault()
-						setPhone(e.target.value)
-					}}
-				/>
+				<FormControl isInvalid={error}>
+					<FormLabel textAlign="center">Телефон</FormLabel>
+					<InputGroup>
+						<InputLeftElement
+							color={pin ? '#6e727a' : ''}
+							display="flex"
+							gap={2}
+							ml={3}
+							cursor={pin ? 'not-allowed' : 'default'}
+						>
+							<Icon as={BsFillTelephoneFill} />
+							{code}
+						</InputLeftElement>
+						<Input
+							position="relative"
+							isDisabled={pin ? true : false}
+							focusBorderColor={error ? 'red.400' : ''}
+							type="number"
+							pl={16}
+							value={phone || ''}
+							onChange={(e) => {
+								e.preventDefault()
+								setError(false)
+								setPhone(+e.target.value)
+							}}
+						/>
+						{error ? (
+							<FormErrorMessage
+								position="absolute"
+								bottom="-45%"
+								fontSize={12}
+							>
+								Нам нужен твой номер
+							</FormErrorMessage>
+						) : null}
+					</InputGroup>
+				</FormControl>
 				<Center
 					position="absolute"
 					left="50%"
-					zIndex={1000}
 					id="recaptcha-container"
 				></Center>
 				{pin && (
-					<Box m={5} display="flex">
+					<Box m={5} display="flex" gap={3}>
 						<PinInput otp onChange={(value) => verifyOTP(value)}>
 							<PinInputField />
 							<PinInputField />
@@ -97,7 +161,11 @@ const FormAuth = () => {
 						</PinInput>
 					</Box>
 				)}
-				{pin ? null : <Button type="submit">Войти</Button>}
+				{pin ? null : (
+					<Button type="submit" isLoading={loading}>
+						Войти
+					</Button>
+				)}
 			</Box>
 		</Center>
 	)

@@ -10,7 +10,7 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Dobro Coffee</title>
+				<title>Добро Кофе</title>
 				<meta
 					name="description"
 					content="Кофейня Добро Кофе Севастополь"

@@ -5,9 +5,10 @@ import { BsSearch } from 'react-icons/bs'
 
 interface SearhBarProps {
 	onChangeHandler: React.ChangeEventHandler<HTMLInputElement>
+	failure: boolean
 }
 
-const SearchBar = ({ onChangeHandler }: SearhBarProps) => {
+const SearchBar = ({ onChangeHandler, failure }: SearhBarProps) => {
 	return (
 		<>
 			<InputGroup w="" my={5}>
@@ -15,6 +16,7 @@ const SearchBar = ({ onChangeHandler }: SearhBarProps) => {
 					<BsSearch />
 				</InputLeftElement>
 				<Input
+					focusBorderColor={failure ? 'red.400' : 'green.300'}
 					placeholder="Найди свой кофе"
 					_dark={{ _placeholder: { color: 'white', opacity: 0.9 } }}
 					fontSize={[12, 14]}

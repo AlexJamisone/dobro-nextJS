@@ -16,6 +16,7 @@ import { BsFillCalendar2Fill, BsFillTelephoneFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { QueryObserverResult } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
+import { motion } from 'framer-motion'
 
 export interface Fields {
 	phone: string | undefined
@@ -27,7 +28,7 @@ interface NewUserProps {
 	refetch: () => Promise<QueryObserverResult>
 }
 
-const NewUser = ({refetch}: NewUserProps) => {
+const NewUser = ({ refetch }: NewUserProps) => {
 	const { user } = useAuth()
 	const [fields, setFields] = useState<Fields>({
 		birthday: '',
@@ -53,14 +54,22 @@ const NewUser = ({refetch}: NewUserProps) => {
 				})
 				await response.json()
 				await refetch()
-                setLoading(false)
+				setLoading(false)
 			}
 		} catch (error) {
 			console.log(error)
 		}
 	}
 	return (
-		<Center flexDirection="column" gap={10}>
+		<Center
+			as={motion.div}
+			initial={{ y: 50, opacity: 0 }}
+			animate={{ y: 0, opacity: 1, type: 'spring' }}
+			transitionDuration={'1.5s'}
+			flexDirection="column"
+			gap={10}
+			mt={[10]}
+		>
 			<Text w={[500]} textAlign="center">
 				Похоже у нас нет твоего бонусного счёта, но мы можем его сделать
 			</Text>
@@ -129,7 +138,13 @@ const NewUser = ({refetch}: NewUserProps) => {
 						Твой День Рождения, что бы мы могли тебя поздравить!
 					</FormHelperText>
 				</InputGroup>
-				<Button isLoading={loading} onClick={() => handlSubmit(fields)}>
+				<Button
+					isLoading={loading}
+					onClick={() => handlSubmit(fields)}
+					onKeyUp={(e) =>
+						e.key === 'Enter' ? handlSubmit(fields) : null
+					}
+				>
 					Создать
 				</Button>
 			</Box>

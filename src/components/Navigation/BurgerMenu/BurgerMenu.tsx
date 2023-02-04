@@ -18,6 +18,7 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { TfiLightBulb } from 'react-icons/tfi'
 import { MdNightlight } from 'react-icons/md'
 import { useAuth } from '../../../context/AuthContext'
+
 const BurgerMenu = () => {
 	const { user, logout } = useAuth()
 	const { isOpen, onClose, onOpen } = useDisclosure()
@@ -37,6 +38,10 @@ const BurgerMenu = () => {
 				</motion.div>
 			</Link>
 			<IconButton
+				as={motion.button}
+				initial={{ x: 150, rotate: '180deg', opacity: 0 }}
+				animate={{ x: 0, rotate: '0deg', opacity: 1, type: 'spring' }}
+				transitionDuration={'1.5s'}
 				onClick={onOpen}
 				aria-label="burger"
 				icon={<GiHamburgerMenu color="gray" />}
@@ -83,7 +88,7 @@ const BurgerMenu = () => {
 										<Box
 											as="a"
 											cursor="pointer"
-											// onClick={() => logout()}
+											onClick={() => logout()}
 										>
 											Выход
 										</Box>
@@ -92,7 +97,7 @@ const BurgerMenu = () => {
 							) : (
 								<Link href="/signin">
 									<Box as="a" cursor="pointer">
-										Sign In
+										Вход
 									</Box>
 								</Link>
 							)}

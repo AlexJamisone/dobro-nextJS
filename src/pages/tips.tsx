@@ -1,4 +1,4 @@
-import { Link, Box, Avatar, Text } from '@chakra-ui/react'
+import { Avatar, Box, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Head from 'next/head'
 
@@ -30,7 +30,16 @@ const TipsCard = () => {
 			mt={20}
 		>
 			<Head>
-				<title>Чаевые для Бариста</title>
+				<title>Чаевые для бариста</title>
+				<meta
+					name="Чай"
+					content="Кофейня Добро Кофе Севастополь вознаграждение чаевые онлайн"
+				/>
+				<meta
+					name="keywords"
+					content="добро,кофейня,кофе,зерно,северная сторона,кофейни на северной,эспрессо,купить кофе,кофе домой,чашка кофе,капучино, акции, бонусы, чаевые"
+				/>
+				<link rel="icon" href="favicon.png" />
 			</Head>
 			{barista.map(({ name, avatar, link }, index) => {
 				return (
@@ -48,10 +57,7 @@ const TipsCard = () => {
 						cursor="pointer"
 						mx={3}
 					>
-						<Avatar
-							size={['xl', '2xl']}
-							src={avatar}
-						/>
+						<Avatar size={['xl', '2xl']} src={avatar} />
 						<Text mt={1}>{name}</Text>
 					</Box>
 				)

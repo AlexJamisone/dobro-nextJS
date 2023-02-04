@@ -17,7 +17,7 @@ const UserContent = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify('+79780616352'),
+				body: JSON.stringify(user?.phoneNumber),
 				method: 'POST',
 			})
 			return await response.json()
@@ -25,7 +25,6 @@ const UserContent = () => {
 			console.log(error)
 		}
 	})
-	console.log('from userContent', data)
 	return (
 		<>
 			{isLoading ? (
@@ -55,15 +54,19 @@ const UserContent = () => {
 								<UserAvatar
 									id={id}
 									avatar={avatar}
-									// refetch={refetch}
+									refetch={refetch}
 								/>
 								<Text>Привет {firstName}</Text>
-								<Text>У тебя сейчаc {bonus} бонуса</Text>
+								<Text>У тебя сейчаc {bonus} бонусов</Text>
 								<Text>
 									Ты с нами уже{' '}
 									{moment(createTime).fromNow(true)}
 								</Text>
-								<CheckTable transactions={transactions} />
+								{transactions.length === 0 ? (
+									<Text>Пока что нету чеков</Text>
+								) : (
+									<CheckTable transactions={transactions} />
+								)}
 							</Center>
 						)
 					)}
