@@ -30,6 +30,7 @@ const Card = ({ data: { img, name, price } }: CardProps) => {
 			fontSize={[10, 16]}
 			lineHeight={1}
 			w={['100%']}
+			gap={3}
 		>
 			<Image
 				src={img}
@@ -39,7 +40,9 @@ const Card = ({ data: { img, name, price } }: CardProps) => {
 				loading="lazy"
 				unoptimized={true}
 			/>
-			<Text>{name}</Text>
+			<Text fontSize={[12, 14]} lineHeight={1.5} textAlign="left" w={'150px'}>
+				{name}
+			</Text>
 			<Text w={['50px', '75px']}>{price}</Text>
 		</Box>
 	)

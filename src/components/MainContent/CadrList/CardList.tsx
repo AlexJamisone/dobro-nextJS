@@ -1,9 +1,10 @@
 import { Box } from '@chakra-ui/react'
 import { FC } from 'react'
 import Card from '../Card/Card'
+import { dbCofeeDataApi } from '../Content'
 
 type CardListP = {
-	data: []
+	data: dbCofeeDataApi[] | undefined
 }
 
 const CardList: FC<CardListP> = ({ data }) => {
@@ -22,9 +23,9 @@ const CardList: FC<CardListP> = ({ data }) => {
 					display: 'none',
 				},
 			}}
-			w={[300,417]}
+			w={[300, 417]}
 		>
-			{data.map((item, index) => (
+			{data?.map((item, index) => (
 				<Card key={index} data={item} />
 			))}
 		</Box>

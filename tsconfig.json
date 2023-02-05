@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/MainContent/Content.jsx", "src/components/Spinner/Spinner.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/MainContent/Content.tsx", "src/components/Spinner/Spinner.jsx"],
   "exclude": ["node_modules"]
 }

@@ -63,7 +63,7 @@ const UserContent = () => {
 									{moment(createTime).fromNow(true)}
 								</Text>
 								{transactions.length === 0 ? (
-									<Text>Пока что нету чеков</Text>
+									<Text>Пока что нет чеков</Text>
 								) : (
 									<CheckTable transactions={transactions} />
 								)}
