@@ -19,6 +19,7 @@ import { auth } from '../../firebase/clientApp'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 import { BsFillTelephoneFill } from 'react-icons/bs'
+import {GrSecure, GrInsecure} from 'react-icons/gr'
 import { motion } from 'framer-motion'
 
 const FormAuth = () => {
@@ -83,9 +84,22 @@ const FormAuth = () => {
 				let confirmationResult = window.confirmationResult
 				await confirmationResult.confirm(value)
 				router.push('/profile')
+				toast({
+					title: 'Верный код, заходим',
+					status: 'loading',
+					isClosable: true
+				})
 			}
 		} catch (error) {
 			console.log(error)
+			toast({
+				title: 'Неверный код',
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+				icon: <GrSecure/>
+			})
+			
 		}
 	}
 

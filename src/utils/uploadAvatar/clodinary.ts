@@ -29,7 +29,9 @@ export function uploadImage(
 				width: 150,
 				height: 150,
 				crop: 'fill',
+				quality_analysis: true,
 			},
+
 			(err: any, res: any) => {
 				if (err) rejects(err)
 				resolve(res)

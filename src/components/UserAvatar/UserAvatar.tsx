@@ -1,7 +1,14 @@
-import { Avatar as AvatarIcon, Center, Input, Spinner } from '@chakra-ui/react'
+import {
+	Avatar as AvatarIcon,
+	Center,
+	Input,
+	Spinner,
+	useToast,
+} from '@chakra-ui/react'
 import { Avatar } from '@prisma/client'
 import React, { useState, useEffect } from 'react'
 import { QueryObserverResult } from 'react-query'
+import { BsCardImage } from 'react-icons/bs'
 
 interface UserAvatarProps {
 	id: number
@@ -11,7 +18,9 @@ interface UserAvatarProps {
 
 const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 	const [imgUpload, setImgUpload] = useState<File>()
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState<boolean>(false)
+	const toast = useToast()
+
 	useEffect(() => {
 		if (imgUpload !== undefined) {
 			submitData()
@@ -31,19 +40,29 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 			const formData = new FormData()
 			formData.append('image', imgUpload)
 			formData.append('id', JSON.stringify(id))
-			await fetch('api/upload', {
+			const response = await fetch('api/upload', {
 				method: 'POST',
 				body: formData,
 			})
 			setImgUpload(undefined)
+			const { http_code } = await response.json()
+			if (http_code) {
+				toast({
+					title: 'Кажется картинка слишком много для нас весить, максимум 10,4Мб',
+					status: 'error',
+					isClosable: true,
+					duration: 4000,
+					icon: <BsCardImage />,
+				})
+			}
 			await refetch()
 			setLoading(false)
 		} catch (error) {
-			console.log(error)
+			console.log('in component', error)
 		}
 	}
 	return (
-		<Center mt={5} width='100%'>
+		<Center mt={5} width="100%">
 			<Input
 				accept=".jpg, .png, .gif, .jpeg"
 				type="file"
@@ -52,12 +71,12 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				display="none"
 			/>
 			{loading ? (
-				<Spinner size={['md','xl']} />
+				<Spinner size={['md', 'xl']} />
 			) : (
 				<AvatarIcon
 					as="label"
 					htmlFor="upload"
-					size={['md',"lg"]}
+					size={['md', 'lg']}
 					cursor="pointer"
 					src={`https://res.cloudinary.com/dzbwliwhr/v${avatar?.version}/${avatar?.publicId}.${avatar?.format}`}
 				/>

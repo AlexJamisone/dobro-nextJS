@@ -1,10 +1,7 @@
-// import { getImage } from "../../utils/formidable";
-// import { uploadImage } from "../../utils/clodiinary";
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../db/client'
 import { uploadImage } from '../../utils/uploadAvatar/clodinary'
 import { getImage } from '../../utils/uploadAvatar/formidable'
-import cloudinary from 'cloudinary'
 
 export const config = {
 	api: {
@@ -34,5 +31,6 @@ export default async function handler(
 		res.status(200).json({ message: 'succecc', result })
 	} catch (error) {
 		console.log('in upload', error)
+		return res.status(400).json(error)
 	}
 }
