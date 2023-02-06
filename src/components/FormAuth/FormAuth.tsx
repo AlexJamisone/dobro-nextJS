@@ -19,7 +19,7 @@ import React, { useState } from 'react'
 import { auth } from '../../firebase/clientApp'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
-import { BsFillTelephoneFill } from 'react-icons/bs'
+import { BsFillTelephoneFill, BsEnvelope } from 'react-icons/bs'
 import { GrSecure } from 'react-icons/gr'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { motion } from 'framer-motion'
@@ -64,10 +64,11 @@ const FormAuth = () => {
 				const res = await signin(auth, phoneNumber, appVerifier)
 				window.confirmationResult = res
 				toast({
-					title: `SMS была отправлена на номер ${phoneNumber}`,
+					title: `SMS было отправлена на номер ${phoneNumber}`,
 					status: 'success',
 					isClosable: true,
 					duration: 4000,
+					icon: <BsEnvelope/>
 				})
 				setPin(true)
 				setLoading(false)
