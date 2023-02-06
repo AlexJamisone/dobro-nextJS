@@ -6,6 +6,7 @@ import { AuthContextProvider } from '../context/AuthContext'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { theme } from '../chakra/them'
 import { Box } from '@chakra-ui/react'
+import '../styles/global.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [queryClient] = React.useState(() => new QueryClient())

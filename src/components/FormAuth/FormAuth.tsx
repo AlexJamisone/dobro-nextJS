@@ -12,6 +12,7 @@ import {
 	FormControl,
 	FormErrorMessage,
 	Icon,
+	FormHelperText,
 } from '@chakra-ui/react'
 import { RecaptchaVerifier } from 'firebase/auth'
 import React, { useState } from 'react'
@@ -19,7 +20,8 @@ import { auth } from '../../firebase/clientApp'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
 import { BsFillTelephoneFill } from 'react-icons/bs'
-import {GrSecure, GrInsecure} from 'react-icons/gr'
+import { GrSecure } from 'react-icons/gr'
+import { RiErrorWarningLine } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 
 const FormAuth = () => {
@@ -49,8 +51,8 @@ const FormAuth = () => {
 			setLoading(true)
 			const phoneNumber: string = code + phone?.toString()
 			const phoneInput = phone?.toString()
-			console.log(phoneInput)
-			if (phoneInput === undefined) {
+			console.log(phoneInput?.length)
+			if (phoneInput === undefined || phoneInput === '0' || phoneInput.length < 10) {
 				setError(true)
 				setLoading(false)
 			} else if (phoneNumber.length === 12) {
@@ -65,6 +67,14 @@ const FormAuth = () => {
 					duration: 4000,
 				})
 				setPin(true)
+				setLoading(false)
+			} else if (phoneNumber.length > 12) {
+				toast({
+					title: `Неверная длинна номера телефона, проверь номер`,
+					status: 'warning',
+					isClosable: true,
+					duration: 6000
+				})
 				setLoading(false)
 			}
 		} catch (error) {
@@ -87,7 +97,7 @@ const FormAuth = () => {
 				toast({
 					title: 'Верный код, заходим',
 					status: 'loading',
-					isClosable: true
+					isClosable: true,
 				})
 			}
 		} catch (error) {
@@ -97,9 +107,8 @@ const FormAuth = () => {
 				status: 'error',
 				duration: 5000,
 				isClosable: true,
-				icon: <GrSecure/>
+				icon: <GrSecure />,
 			})
-			
 		}
 	}
 
@@ -108,8 +117,8 @@ const FormAuth = () => {
 			mt={10}
 			as={motion.div}
 			initial={{ y: 100, opacity: 0 }}
-			animate={{ y: 0, opacity: 1, type: "spring" }}
-			transitionDuration='1.5s'
+			animate={{ y: 0, opacity: 1, type: 'spring' }}
+			transitionDuration="1.5s"
 		>
 			<Box
 				as="form"
@@ -155,7 +164,18 @@ const FormAuth = () => {
 							>
 								Нам нужен твой номер
 							</FormErrorMessage>
-						) : null}
+						) : (
+							<FormHelperText
+								position="absolute"
+								bottom={'-95%'}
+								display="flex"
+								alignItems="center"
+								gap={2}
+							>
+								<Icon as={RiErrorWarningLine} fontSize={[20]} />
+								Для входа нужно использовать VPN-сервис
+							</FormHelperText>
+						)}
 					</InputGroup>
 				</FormControl>
 				<Center
@@ -176,7 +196,7 @@ const FormAuth = () => {
 					</Box>
 				)}
 				{pin ? null : (
-					<Button type="submit" isLoading={loading}>
+					<Button type="submit" isLoading={loading} mt={5}>
 						Войти
 					</Button>
 				)}
