@@ -9,6 +9,7 @@ import { Avatar } from '@prisma/client'
 import React, { useState, useEffect } from 'react'
 import { QueryObserverResult } from 'react-query'
 import { BsCardImage } from 'react-icons/bs'
+import { VscError } from 'react-icons/vsc'
 
 interface UserAvatarProps {
 	id: number
@@ -45,7 +46,7 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				body: formData,
 			})
 			setImgUpload(undefined)
-			const { http_code } = await response.json()
+			const { http_code, message } = await response.json()
 			if (http_code) {
 				toast({
 					title: 'Кажется картинка слишком много для нас весить, максимум 10,4Мб',
@@ -54,11 +55,19 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 					duration: 4000,
 					icon: <BsCardImage />,
 				})
+			} else {
+				toast({
+					title: `${message}`,
+					status: 'error',
+					isClosable: true,
+					duration: 7000,
+					icon: <VscError />,
+				})
 			}
 			await refetch()
 			setLoading(false)
 		} catch (error) {
-			console.log('in component', error)
+			console.log(error)
 		}
 	}
 	return (

@@ -51,8 +51,11 @@ const FormAuth = () => {
 			setLoading(true)
 			const phoneNumber: string = code + phone?.toString()
 			const phoneInput = phone?.toString()
-			console.log(phoneInput?.length)
-			if (phoneInput === undefined || phoneInput === '0' || phoneInput.length < 10) {
+			if (
+				phoneInput === undefined ||
+				phoneInput === '0' ||
+				phoneInput.length < 10
+			) {
 				setError(true)
 				setLoading(false)
 			} else if (phoneNumber.length === 12) {
@@ -73,7 +76,7 @@ const FormAuth = () => {
 					title: `Неверная длинна номера телефона, проверь номер`,
 					status: 'warning',
 					isClosable: true,
-					duration: 6000
+					duration: 6000,
 				})
 				setLoading(false)
 			}
@@ -185,7 +188,11 @@ const FormAuth = () => {
 				></Center>
 				{pin && (
 					<Box m={5} display="flex" gap={3}>
-						<PinInput otp onChange={(value) => verifyOTP(value)}>
+						<PinInput
+							otp
+							autoFocus={pin}
+							onChange={(value) => verifyOTP(value)}
+						>
 							<PinInputField />
 							<PinInputField />
 							<PinInputField />
