@@ -1,6 +1,5 @@
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
-import { motion } from 'framer-motion'
-import { InputLeftElement, Input, InputGroup } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 
 interface SearhBarProps {

@@ -88,6 +88,7 @@ const FormAuth = () => {
 				isClosable: true,
 				duration: 6000,
 			})
+			setLoading(false)
 			console.log(error)
 		}
 	}
