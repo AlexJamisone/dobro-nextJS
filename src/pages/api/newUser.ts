@@ -7,7 +7,7 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const { birthday, firstName, phone }: Fields = req.body
+		const { birthday, firstName, phone, sex }: Fields = req.body
 		await baseCallApi('/bonuses/createCustomer', 'POST', {
 			firstName,
 			dateOfBirth:
@@ -18,6 +18,7 @@ export default async function handler(
 					value: phone,
 				},
 			],
+			sex
 		})
 		res.status(200).json({ message: '✔' })
 	} catch (error) {

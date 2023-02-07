@@ -10,6 +10,10 @@ import {
 	InputGroup,
 	InputLeftElement,
 	Text,
+	Radio,
+	RadioGroup,
+	Stack,
+	FormLabel
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { BsFillCalendar2Fill, BsFillTelephoneFill } from 'react-icons/bs'
@@ -22,6 +26,7 @@ export interface Fields {
 	phone: string | undefined
 	firstName: string
 	birthday: string
+	sex: 'male' | 'female'
 }
 
 interface NewUserProps {
@@ -34,6 +39,7 @@ const NewUser = ({ refetch }: NewUserProps) => {
 		birthday: '',
 		firstName: '',
 		phone: user?.phoneNumber as string,
+		sex: 'male',
 	})
 	const [error, setError] = useState<boolean>(false)
 	const [loading, setLoading] = useState<boolean>(false)
@@ -60,6 +66,7 @@ const NewUser = ({ refetch }: NewUserProps) => {
 			console.log(error)
 		}
 	}
+	console.log(fields)
 	return (
 		<Center
 			as={motion.div}
@@ -70,7 +77,7 @@ const NewUser = ({ refetch }: NewUserProps) => {
 			gap={10}
 			mt={[10]}
 		>
-			<Text w={[500]} textAlign="center">
+			<Text w={[400, 500]} textAlign="center">
 				Похоже у нас нет твоего бонусного счёта, но мы можем его сделать
 			</Text>
 			<Box
@@ -138,6 +145,22 @@ const NewUser = ({ refetch }: NewUserProps) => {
 						Твой День Рождения, что бы мы могли тебя поздравить!
 					</FormHelperText>
 				</InputGroup>
+				<RadioGroup
+					defaultValue={fields.sex}
+					onChange={(value) =>
+						setFields({ ...fields, sex: value as 'male' | 'female' })
+					}
+					>
+					<FormLabel>Пол</FormLabel>
+					<Stack direction={['row', 'column']} gap={[3, 0]}>
+						<Radio value={'male'} colorScheme="blue">
+							<Text fontSize={[12, 16]}>Мужской</Text>
+						</Radio>
+						<Radio value={'female'} colorScheme="pink">
+							<Text fontSize={[12, 16]}>Женский</Text>
+						</Radio>
+					</Stack>
+				</RadioGroup>
 				<Button
 					isLoading={loading}
 					onClick={() => handlSubmit(fields)}

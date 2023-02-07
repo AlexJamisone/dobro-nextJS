@@ -14,6 +14,22 @@ export function uploadImage(
 	id: number
 ): Promise<cloudinary.UploadApiResponse> {
 	return new Promise(async (resolve, rejects) => {
+		const upload = () => {
+			return cloudinary.v2.uploader.upload(
+				imageUloaded,
+				{
+					width: 150,
+					height: 150,
+					crop: 'fill',
+					quality_analysis: true,
+				},
+
+				(err: any, res: any) => {
+					if (err) rejects(err)
+					resolve(res)
+				}
+			)
+		}
 		const findimg = await prisma.avatar.findUnique({
 			where: {
 				id,
@@ -22,20 +38,11 @@ export function uploadImage(
 				publicId: true,
 			},
 		})
-		cloudinary.v2.uploader.destroy(findimg?.publicId as string)
-		cloudinary.v2.uploader.upload(
-			imageUloaded,
-			{
-				width: 150,
-				height: 150,
-				crop: 'fill',
-				quality_analysis: true,
-			},
-
-			(err: any, res: any) => {
-				if (err) rejects(err)
-				resolve(res)
-			}
-		)
+		if (findimg?.publicId === '') {
+			await upload()
+		} else {
+			cloudinary.v2.uploader.destroy(findimg?.publicId as string)
+			await upload()
+		}
 	})
 }
