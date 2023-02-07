@@ -1,38 +1,34 @@
 import {
-	Center,
-	Box,
-	FormLabel,
-	Input,
-	PinInput,
-	PinInputField,
-	Button,
-	useToast,
-	InputLeftElement,
-	InputGroup,
-	FormControl,
-	FormErrorMessage,
-	Icon,
-	FormHelperText,
+	Box, Button, Center, FormControl,
+	FormErrorMessage, FormHelperText, FormLabel, Icon, Input, InputGroup, InputLeftElement, PinInput,
+	PinInputField, useToast
 } from '@chakra-ui/react'
 import { RecaptchaVerifier } from 'firebase/auth'
-import React, { useState } from 'react'
-import { auth } from '../../firebase/clientApp'
-import { useAuth } from '../../context/AuthContext'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { BsFillTelephoneFill, BsEnvelope } from 'react-icons/bs'
+import React, { useReducer } from 'react'
+import { BsEnvelope, BsFillTelephoneFill } from 'react-icons/bs'
 import { GrSecure } from 'react-icons/gr'
 import { RiErrorWarningLine } from 'react-icons/ri'
-import { motion } from 'framer-motion'
+import { useAuth } from '../../context/AuthContext'
+import { auth } from '../../firebase/clientApp'
+import { FormAuthReducer, FormAuthState } from '../../reducers/FormAuth.reducer'
 
 const FormAuth = () => {
 	const toast = useToast()
 	const router = useRouter()
 	const { signin } = useAuth()
 	const code: string = '+7'
-	const [phone, setPhone] = useState<number | null>(null)
-	const [pin, setPin] = useState<boolean>(false)
-	const [error, setError] = useState<boolean>(false)
-	const [loading, setLoading] = useState<boolean>(false)
+
+	const initialState: FormAuthState = {
+		error: false,
+		loading: false,
+		phone: null,
+		pin: false,
+	}
+
+	const [state, dispatch] = useReducer(FormAuthReducer, initialState)
+	const { error, loading, phone, pin } = state
 
 	const generateRecapcha = () => {
 		window.recaptchaVerifier = new RecaptchaVerifier(
@@ -48,7 +44,7 @@ const FormAuth = () => {
 	const requestCode = async (e: React.SyntheticEvent) => {
 		e.preventDefault()
 		try {
-			setLoading(true)
+			dispatch({ type: 'SET_LOADING', payload: true })
 			const phoneNumber: string = code + phone?.toString()
 			const phoneInput = phone?.toString()
 			if (
@@ -56,8 +52,8 @@ const FormAuth = () => {
 				phoneInput === '0' ||
 				phoneInput.length < 10
 			) {
-				setError(true)
-				setLoading(false)
+				dispatch({ type: 'SET_ERROR', payload: true })
+				dispatch({ type: 'SET_LOADING', payload: false })
 			} else if (phoneNumber.length === 12) {
 				generateRecapcha()
 				let appVerifier = window.recaptchaVerifier
@@ -68,10 +64,10 @@ const FormAuth = () => {
 					status: 'success',
 					isClosable: true,
 					duration: 4000,
-					icon: <BsEnvelope/>
+					icon: <BsEnvelope />,
 				})
-				setPin(true)
-				setLoading(false)
+				dispatch({ type: 'SET_PIN', payload: true })
+				dispatch({ type: 'SET_LOADING', payload: false })
 			} else if (phoneNumber.length > 12) {
 				toast({
 					title: `Неверная длинна номера телефона, проверь номер`,
@@ -79,7 +75,7 @@ const FormAuth = () => {
 					isClosable: true,
 					duration: 6000,
 				})
-				setLoading(false)
+				dispatch({ type: 'SET_LOADING', payload: false })
 			}
 		} catch (error) {
 			toast({
@@ -88,7 +84,6 @@ const FormAuth = () => {
 				isClosable: true,
 				duration: 6000,
 			})
-			setLoading(false)
 			console.log(error)
 		}
 	}
@@ -116,7 +111,7 @@ const FormAuth = () => {
 			})
 		}
 	}
-
+	console.log(state)
 	return (
 		<Center
 			mt={10}
@@ -157,8 +152,11 @@ const FormAuth = () => {
 							value={phone || ''}
 							onChange={(e) => {
 								e.preventDefault()
-								setError(false)
-								setPhone(+e.target.value)
+								dispatch({ type: 'SET_ERROR', payload: false })
+								dispatch({
+									type: 'SET_PHONE',
+									payload: +e.target.value,
+								})
 							}}
 						/>
 						{error ? (
