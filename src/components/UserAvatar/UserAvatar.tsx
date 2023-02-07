@@ -46,6 +46,8 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				body: formData,
 			})
 			setImgUpload(undefined)
+			await refetch()
+			setLoading(false)
 			const { http_code, message } = await response.json()
 			if (http_code) {
 				toast({
@@ -55,17 +57,13 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 					duration: 4000,
 					icon: <BsCardImage />,
 				})
-			} else {
+			} else if (message) {
 				toast({
 					title: `${message}`,
-					status: 'error',
-					isClosable: true,
-					duration: 7000,
-					icon: <VscError />,
+					status: 'info',
+					isClosable: true
 				})
 			}
-			await refetch()
-			setLoading(false)
 		} catch (error) {
 			console.log(error)
 		}

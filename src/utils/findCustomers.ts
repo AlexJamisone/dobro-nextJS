@@ -25,38 +25,42 @@ interface DataApi {
 }
 
 export const findCustomers = async (phone: string) => {
-	const data = await baseCallApi('/bonuses/filterCustomers', 'POST', {
-		search: phone,
-	})
-	const customer = Promise.all(
-		await data.customers.map(
-			async ({
-				createTime,
-				firstName,
-				id,
-				sex,
-			}: DataApi): Promise<Customers> => {
-				const checkAvatar: Avatar | undefined = await createBaseAvatar(id)
-				const { bonus, spent } = await customerInfo(id)
-				const {
-					bonusesReceivedAllTime: saved,
-					orderData: transactions,
-				} = await findTransition(phone)
-				return {
-					id,
-					firstName,
-					avatar: checkAvatar,
-					bonus,
+	try {
+		const data = await baseCallApi('/bonuses/filterCustomers', 'POST', {
+			search: phone,
+		})
+		const customer = Promise.all(
+			await data.customers.map(
+				async ({
 					createTime,
+					firstName,
+					id,
 					sex,
-					saved,
-					spent,
-					transactions,
+				}: DataApi): Promise<Customers> => {
+					const avatar = await createBaseAvatar(id)
+					const { bonus, spent } = await customerInfo(id)
+					const {
+						bonusesReceivedAllTime: saved,
+						orderData: transactions,
+					} = await findTransition(phone)
+					return {
+						id,
+						firstName,
+						avatar,
+						bonus,
+						createTime,
+						sex,
+						saved,
+						spent,
+						transactions,
+					}
 				}
-			}
+			)
 		)
-	)
-	return customer
+		return customer
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 export default findCustomers

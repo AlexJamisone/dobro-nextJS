@@ -28,7 +28,7 @@ export default async function handler(
 				version: imageData.version.toString(),
 			},
 		})
-		res.status(200).json({ message: 'succecc', result })
+		res.status(200).json({ message: 'Аватарка успешно обновлена!', result })
 	} catch (error) {
 		console.log('in upload', error)
 		return res.status(400).json(error)
