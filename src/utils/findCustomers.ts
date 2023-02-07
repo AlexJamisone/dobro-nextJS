@@ -36,7 +36,7 @@ export const findCustomers = async (phone: string) => {
 				id,
 				sex,
 			}: DataApi): Promise<Customers> => {
-				const avatar = await createBaseAvatar(id)
+				const checkAvatar: Avatar | undefined = await createBaseAvatar(id)
 				const { bonus, spent } = await customerInfo(id)
 				const {
 					bonusesReceivedAllTime: saved,
@@ -45,7 +45,7 @@ export const findCustomers = async (phone: string) => {
 				return {
 					id,
 					firstName,
-					avatar,
+					avatar: checkAvatar,
 					bonus,
 					createTime,
 					sex,

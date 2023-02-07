@@ -2,7 +2,7 @@ import { prisma } from '../db/client'
 
 export const createBaseAvatar = async (id: number) => {
 	try {
-		const checkAvatar = await prisma.avatar.findUnique({
+		const findAvatar = await prisma.avatar.findUnique({
 			where: {
 				id,
 			},
@@ -13,10 +13,10 @@ export const createBaseAvatar = async (id: number) => {
 				version: true
 			}
 		})
-		if (checkAvatar) {
-			return checkAvatar
+		if (findAvatar) {
+			return findAvatar
 		} else {
-			const createBaseAvatar = await prisma.avatar.create({
+			const avatar = await prisma.avatar.create({
 				data: {
 					id,
 					format: '',
@@ -24,7 +24,7 @@ export const createBaseAvatar = async (id: number) => {
 					version: '',
 				},
 			})
-			return createBaseAvatar
+			return avatar
 		}
 	} catch (error) {
 		console.log(error)
