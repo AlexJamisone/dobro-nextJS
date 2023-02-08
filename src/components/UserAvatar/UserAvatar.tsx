@@ -6,10 +6,11 @@ import {
 	useToast,
 } from '@chakra-ui/react'
 import { Avatar } from '@prisma/client'
-import React, { useState, useEffect } from 'react'
-import { QueryObserverResult } from 'react-query'
+import React, { useEffect, useReducer, useState } from 'react'
 import { BsCardImage } from 'react-icons/bs'
-import { VscError } from 'react-icons/vsc'
+import { QueryObserverResult } from 'react-query'
+import { UserAvatarReducer } from '../../reducers/UserAvatar.reducer'
+import { UserAvatarState } from '../../reducers/UserAvatar.reducer'
 
 interface UserAvatarProps {
 	id: number
@@ -18,9 +19,15 @@ interface UserAvatarProps {
 }
 
 const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
-	const [imgUpload, setImgUpload] = useState<File>()
-	const [loading, setLoading] = useState<boolean>(false)
+	// const [imgUpload, setImgUpload] = useState<File>()
+	// const [loading, setLoading] = useState<boolean>(false)
 	const toast = useToast()
+	const initialState: UserAvatarState = {
+		imgUpload: undefined,
+		loading: false,
+	}
+	const [state, dispatch] = useReducer(UserAvatarReducer, initialState)
+	const { imgUpload, loading } = state
 
 	useEffect(() => {
 		if (imgUpload !== undefined) {
@@ -30,14 +37,14 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 
 	const handlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files) return
-		setImgUpload(e.target.files[0])
+		dispatch({ type: 'SET_IMG', payload: e.target.files[0] })
 	}
 	const submitData = async () => {
 		if (!imgUpload) {
 			return
 		}
 		try {
-			setLoading(true)
+			dispatch({ type: 'SET_LOADING', payload: true })
 			const formData = new FormData()
 			formData.append('image', imgUpload)
 			formData.append('id', JSON.stringify(id))
@@ -45,9 +52,9 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				method: 'POST',
 				body: formData,
 			})
-			setImgUpload(undefined)
+			dispatch({ type: 'SET_IMG', payload: undefined })
 			await refetch()
-			setLoading(false)
+			dispatch({ type: 'SET_LOADING', payload: false })
 			const { http_code, message } = await response.json()
 			if (http_code) {
 				toast({
@@ -61,7 +68,7 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 				toast({
 					title: `${message}`,
 					status: 'info',
-					isClosable: true
+					isClosable: true,
 				})
 			}
 		} catch (error) {
