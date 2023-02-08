@@ -1,7 +1,18 @@
 import {
-	Box, Button, Center, FormControl,
-	FormErrorMessage, FormHelperText, FormLabel, Icon, Input, InputGroup, InputLeftElement, PinInput,
-	PinInputField, useToast
+	Box,
+	Button,
+	Center,
+	FormControl,
+	FormErrorMessage,
+	FormHelperText,
+	FormLabel,
+	Icon,
+	Input,
+	InputGroup,
+	InputLeftElement,
+	PinInput,
+	PinInputField,
+	useToast,
 } from '@chakra-ui/react'
 import { RecaptchaVerifier } from 'firebase/auth'
 import { motion } from 'framer-motion'

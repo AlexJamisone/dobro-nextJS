@@ -1,19 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+	reactStrictMode: true,
+	swcMinify: true,
 }
 
 module.exports = nextConfig
 
-
 module.exports = {
-  experimental: {
-    images: {
-      allowFutureImage: true,
-    },
-  },
-  images: {
-    domains: ['coffee-static.storage.yandexcloud.net']
-  }
+	experimental: {
+		images: {
+			allowFutureImage: true,
+		},
+	},
+	images: {
+		domains: ['coffee-static.storage.yandexcloud.net'],
+	},
 }

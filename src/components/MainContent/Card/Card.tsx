@@ -40,7 +40,12 @@ const Card = ({ data: { img, name, price } }: CardProps) => {
 				loading="lazy"
 				unoptimized={true}
 			/>
-			<Text fontSize={[12, 14]} lineHeight={1.5} textAlign="left" w={'150px'}>
+			<Text
+				fontSize={[12, 14]}
+				lineHeight={1.5}
+				textAlign="left"
+				w={'150px'}
+			>
 				{name}
 			</Text>
 			<Text w={['50px', '75px']}>{price}</Text>

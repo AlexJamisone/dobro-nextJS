@@ -13,10 +13,10 @@ export const baseCallApi = async (
 			'Content-Type': 'application/json',
 		}),
 		method: method,
-		body: body ? JSON.stringify(body[0]) : null
+		body: body ? JSON.stringify(body[0]) : null,
 	})
-    const data = await response.json()
-    return data
+	const data = await response.json()
+	return data
 }
 
 export default baseCallApi

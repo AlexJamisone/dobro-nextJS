@@ -4,8 +4,8 @@ import { getOrder } from './getOrder'
 export const findTransition = async (phone: string) => {
 	const data = await baseCallApi('/bonuses/operationHistory', 'POST', {
 		customerToken: {
-			type: "phone",
-			key: phone
+			type: 'phone',
+			key: phone,
 		},
 		accountType: {
 			accountGuid: 'bonus_account_type-1',

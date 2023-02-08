@@ -11,11 +11,14 @@ import {
 import { auth } from '../firebase/clientApp'
 
 interface ContextProps {
-    user: User | null
-    signin: (auth: Auth, phone: string, appVerifier: RecaptchaVerifier) => Promise<ConfirmationResult>
-    logout: () => Promise<void>
+	user: User | null
+	signin: (
+		auth: Auth,
+		phone: string,
+		appVerifier: RecaptchaVerifier
+	) => Promise<ConfirmationResult>
+	logout: () => Promise<void>
 }
-
 
 const AuthContext = createContext<ContextProps>({} as ContextProps)
 

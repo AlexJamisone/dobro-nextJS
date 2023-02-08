@@ -10,8 +10,8 @@ export const createBaseAvatar = async (id: number) => {
 				id: true,
 				format: true,
 				publicId: true,
-				version: true
-			}
+				version: true,
+			},
 		})
 		if (findAvatar) {
 			return findAvatar

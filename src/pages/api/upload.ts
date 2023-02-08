@@ -16,8 +16,7 @@ export default async function handler(
 	try {
 		const { id, image } = await getImage(req)
 		const numID = parseInt(id)
-		const imageData: any =
-			await uploadImage(image.filepath, numID)
+		const imageData: any = await uploadImage(image.filepath, numID)
 		const result = await prisma.avatar.update({
 			where: {
 				id: numID,
