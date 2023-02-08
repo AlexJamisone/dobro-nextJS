@@ -5,29 +5,26 @@ import {
 	FormControl,
 	FormErrorMessage,
 	FormHelperText,
+	FormLabel,
 	Icon,
 	Input,
 	InputGroup,
 	InputLeftElement,
-	Text,
 	Radio,
 	RadioGroup,
 	Stack,
-	FormLabel
+	Text,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { useReducer } from 'react'
 import { BsFillCalendar2Fill, BsFillTelephoneFill } from 'react-icons/bs'
 import { FaUser } from 'react-icons/fa'
 import { QueryObserverResult } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
-import { motion } from 'framer-motion'
-
-export interface Fields {
-	phone: string | undefined
-	firstName: string
-	birthday: string
-	sex: 'male' | 'female'
-}
+import {
+	NewUserFieldsState,
+	NewUserReducer,
+} from '../../reducers/NewUser.reducer'
 
 interface NewUserProps {
 	refetch: () => Promise<QueryObserverResult>
@@ -35,21 +32,23 @@ interface NewUserProps {
 
 const NewUser = ({ refetch }: NewUserProps) => {
 	const { user } = useAuth()
-	const [fields, setFields] = useState<Fields>({
+	const initialState: NewUserFieldsState = {
 		birthday: '',
 		firstName: '',
 		phone: user?.phoneNumber as string,
 		sex: 'male',
-	})
-	const [error, setError] = useState<boolean>(false)
-	const [loading, setLoading] = useState<boolean>(false)
+		error: false,
+		loading: false,
+	}
+	const [state, dispatch] = useReducer(NewUserReducer, initialState)
+	const { birthday, error, firstName, loading, phone, sex } = state
 
-	const handlSubmit = async (forms: Fields) => {
+	const handlSubmit = async (forms: NewUserFieldsState) => {
 		try {
-			setLoading(true)
-			if (fields.firstName.length <= 0) {
-				setError(true)
-				setLoading(false)
+			dispatch({ type: 'SET_LOADING', payload: true })
+			if (firstName.length <= 0) {
+				dispatch({ type: 'SET_ERROR', payload: true })
+				dispatch({ type: 'SET_LOADING', payload: false })
 			} else {
 				const response = await fetch('/api/newUser', {
 					headers: {
@@ -60,13 +59,12 @@ const NewUser = ({ refetch }: NewUserProps) => {
 				})
 				await response.json()
 				await refetch()
-				setLoading(false)
+				dispatch({ type: 'SET_LOADING', payload: false })
 			}
 		} catch (error) {
 			console.log(error)
 		}
 	}
-	console.log(fields)
 	return (
 		<Center
 			as={motion.div}
@@ -95,11 +93,7 @@ const NewUser = ({ refetch }: NewUserProps) => {
 							_hover={{ cursor: 'not-allowed' }}
 						/>
 					</InputLeftElement>
-					<Input
-						isDisabled
-						placeholder="Твой номер"
-						value={fields.phone}
-					/>
+					<Input isDisabled placeholder="Твой номер" value={phone} />
 				</InputGroup>
 				<FormControl isInvalid={error}>
 					<InputGroup position="relative">
@@ -109,13 +103,13 @@ const NewUser = ({ refetch }: NewUserProps) => {
 						<Input
 							placeholder="Имя"
 							onChange={(e) => {
-								setError(false)
-								setFields({
-									...fields,
-									firstName: e.target.value,
+								dispatch({ type: 'SET_ERROR', payload: false })
+								dispatch({
+									type: 'SET_FIRST_NAME',
+									payload: e.target.value,
 								})
 							}}
-							value={fields.firstName.trim()}
+							value={firstName}
 						/>
 						{error ? (
 							<FormErrorMessage
@@ -137,20 +131,26 @@ const NewUser = ({ refetch }: NewUserProps) => {
 						type="date"
 						placeholder="Твоя дата рождения"
 						onChange={(e) => {
-							setFields({ ...fields, birthday: e.target.value })
+							dispatch({
+								type: 'SET_BIRTHDAY',
+								payload: e.target.value,
+							})
 						}}
-						value={fields.birthday}
+						value={birthday}
 					/>
 					<FormHelperText fontSize={12}>
 						Твой День Рождения, что бы мы могли тебя поздравить!
 					</FormHelperText>
 				</InputGroup>
 				<RadioGroup
-					defaultValue={fields.sex}
+					defaultValue={sex}
 					onChange={(value) =>
-						setFields({ ...fields, sex: value as 'male' | 'female' })
+						dispatch({
+							type: 'SET_SEX',
+							payload: value as 'male' | 'female',
+						})
 					}
-					>
+				>
 					<FormLabel>Пол</FormLabel>
 					<Stack direction={['row', 'column']} gap={[3, 0]}>
 						<Radio value={'male'} colorScheme="blue">
@@ -163,9 +163,9 @@ const NewUser = ({ refetch }: NewUserProps) => {
 				</RadioGroup>
 				<Button
 					isLoading={loading}
-					onClick={() => handlSubmit(fields)}
+					onClick={() => handlSubmit(state)}
 					onKeyUp={(e) =>
-						e.key === 'Enter' ? handlSubmit(fields) : null
+						e.key === 'Enter' ? handlSubmit(state) : null
 					}
 				>
 					Создать
