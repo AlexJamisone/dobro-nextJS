@@ -22,14 +22,16 @@ const Content = () => {
 				const response = await fetch(api_url, {
 					method: 'GET',
 				})
-				const arr = await response.json()
-				return arr.dbCoffee
+				const data = await response.json()
+				return data.dbCoffee
 			} catch (error) {
 				console.log(error)
 			}
 		}
 	)
-	const [filterData, setFilterData] = useState(data)
+	const [filterData, setFilterData] = useState<dbCofeeDataApi[] | undefined>(
+		data
+	)
 	const [search, setSearch] = useState('')
 	const [failure, setFailure] = useState(false)
 
