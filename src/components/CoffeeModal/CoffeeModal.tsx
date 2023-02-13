@@ -2,14 +2,7 @@ import {
 	Modal,
 	ModalBody,
 	ModalCloseButton,
-	ModalContent,
-	ModalOverlay,
-	ModalHeader,
-	ModalFooter,
-	Center,
-	Image,
-	Text,
-	Box,
+	ModalContent, ModalHeader, ModalOverlay
 } from '@chakra-ui/react'
 import { dbCofeeDataApi } from '../MainContent/Content'
 import CoffeeDetail from './CoffeeDetail/CoffeeDetail'
@@ -26,10 +19,10 @@ const CoffeeModal = ({ isOpen, onClose, data }: CoffeeModalProps) => {
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
-			<ModalContent>
+			<ModalContent w={['90vw','100vw']}>
 				<ModalHeader textAlign="center">{name}</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody>
+				<ModalBody p={3}>
 					{description === 'defult' ? (
 						<WorkInProgres data={data} />
 					) : (

@@ -10,6 +10,12 @@ export interface dbCofeeDataApi {
 	name: string
 	price: string
 	description: string
+	grade: number | null
+	reg: string
+	handler: string
+	height: string | null
+	acidity: "Bitter" | "Neutral" | "Acid"
+	density: "Tea" | "Neutral" | "Dense"
 }
 
 const Content = () => {
