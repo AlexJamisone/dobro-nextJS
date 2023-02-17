@@ -1,8 +1,8 @@
 import { Box, Text, useDisclosure } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { dbCofeeDataApi } from '../../../types/types'
 import CoffeeModal from '../../CoffeeModal/CoffeeModal'
-import { dbCofeeDataApi } from '../Content'
 
 interface CardProps {
 	data: dbCofeeDataApi

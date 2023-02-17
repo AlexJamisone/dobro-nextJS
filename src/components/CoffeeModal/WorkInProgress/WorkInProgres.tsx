@@ -1,6 +1,6 @@
 import { Center, Image, Text } from '@chakra-ui/react'
 import React from 'react'
-import { dbCofeeDataApi } from '../../MainContent/Content'
+import { dbCofeeDataApi } from '../../../types/types'
 
 interface WorkInProgresProps {
 	data: dbCofeeDataApi

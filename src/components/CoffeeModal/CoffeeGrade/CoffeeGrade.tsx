@@ -1,4 +1,4 @@
-import { Text, Tooltip, IconButton, Stack } from '@chakra-ui/react'
+import { Stack, Text } from '@chakra-ui/react'
 import CoffeeToolTips from '../CoffeeToolTips/CoffeeToolTips'
 interface CoffeeGradeProps {
 	grade: number | null

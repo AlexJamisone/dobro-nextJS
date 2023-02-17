@@ -1,5 +1,5 @@
 import { Icon, Stack, Text } from '@chakra-ui/react'
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { GiPlainCircle, GiCircle } from 'react-icons/gi'
 interface CoffeeStarsProps {
 	acidity: 'Bitter' | 'Neutral' | 'Acid'
 	density: 'Tea' | 'Neutral' | 'Dense'
@@ -12,55 +12,55 @@ const CoffeeStars = ({ acidity, density }: CoffeeStarsProps) => (
 			{acidity === 'Bitter' ? (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			) : acidity === 'Neutral' ? (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			) : (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			)}
@@ -70,55 +70,55 @@ const CoffeeStars = ({ acidity, density }: CoffeeStarsProps) => (
 			{density === 'Tea' ? (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			) : density === 'Neutral' ? (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiOutlineStar}
+						as={GiCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			) : (
 				<>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 					<Icon
-						as={AiFillStar}
+						as={GiPlainCircle}
 						color="yellow.400"
-						fontSize={[16, 25]}
+						fontSize={[12, 15]}
 					/>
 				</>
 			)}

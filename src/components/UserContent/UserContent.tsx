@@ -1,7 +1,7 @@
 import { Center, Text } from '@chakra-ui/react'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { useMutation, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import { useAuth } from '../../context/AuthContext'
 import { Customers } from '../../utils/findCustomers'
 import CheckTable from '../CheckTable/CheckTable'

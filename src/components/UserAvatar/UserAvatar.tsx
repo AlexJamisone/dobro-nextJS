@@ -19,8 +19,6 @@ interface UserAvatarProps {
 }
 
 const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
-	// const [imgUpload, setImgUpload] = useState<File>()
-	// const [loading, setLoading] = useState<boolean>(false)
 	const toast = useToast()
 	const initialState: UserAvatarState = {
 		imgUpload: undefined,

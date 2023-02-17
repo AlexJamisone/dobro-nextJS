@@ -1,8 +1,9 @@
 import { Grid, GridItem, Image, Text, Stack, Icon } from '@chakra-ui/react'
-import { dbCofeeDataApi } from '../../MainContent/Content'
 import CoffeeGrade from '../CoffeeGrade/CoffeeGrade'
 import CoffeeHandler from '../CoffeeHandler/CoffeeHandler'
 import CoffeeStars from '../CoffeeStars/CoffeeStars'
+import { dbCofeeDataApi } from '../../../types/types'
+import CoffeeAvailability from '../CoffeeAvailability/CoffeeAvailability'
 
 interface CoffeeDetailProps {
 	data: dbCofeeDataApi
@@ -20,19 +21,20 @@ const CoffeeDetail = ({
 		handler,
 		height,
 		reg,
+		ratio,
+		storeQuantityKg,
 	},
 }: CoffeeDetailProps) => {
-	console.log(grade)
 	return (
 		<Grid
 			templateColumns="repeat(2, 1fr)"
 			columnGap={2}
 			fontSize={[14, 16]}
 		>
-			<GridItem>
+			<GridItem alignSelf="center">
 				<Image alt={name} src={img} w={[150, 250]} />
 			</GridItem>
-			<GridItem w={'100%'}>
+			<GridItem>
 				<Stack>
 					<CoffeeStars acidity={acidity} density={density} />
 					<CoffeeHandler handler={handler} />
@@ -41,7 +43,7 @@ const CoffeeDetail = ({
 					{reg === null ? null : <Text>Регион: {reg}</Text>}
 				</Stack>
 			</GridItem>
-			<GridItem mb={3}>
+			<GridItem my={3} colStart={1}>
 				<Text
 					textAlign="center"
 					fontWeight={600}
@@ -52,6 +54,12 @@ const CoffeeDetail = ({
 				>
 					{price}
 				</Text>
+			</GridItem>
+			<GridItem my={3} colStart={2}>
+				<CoffeeAvailability
+					ratio={ratio}
+					storeQuantityKg={storeQuantityKg}
+				/>
 			</GridItem>
 			<GridItem colSpan={2}>
 				<Text textAlign="center" mb={1}>

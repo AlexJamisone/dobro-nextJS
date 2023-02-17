@@ -1,11 +1,7 @@
 import { Center } from '@chakra-ui/react'
-import type { NextPage } from 'next'
-import { getApp, getApps, initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
 import Head from 'next/head'
 import Content from '../components/MainContent/Content'
-
-const Home: NextPage = () => {
+const Home = () => {
 	return (
 		<>
 			<Head>
@@ -24,10 +20,7 @@ const Home: NextPage = () => {
 			<Center as="main" flexDirection="column">
 				<Content />
 			</Center>
-
-			<footer></footer>
 		</>
 	)
 }
-
 export default Home

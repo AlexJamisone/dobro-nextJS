@@ -1,6 +1,5 @@
-import { NextPage } from 'next'
-import Head from 'next/head'
 import { Box, useMediaQuery } from '@chakra-ui/react'
+import { NextPage } from 'next'
 import BurgerMenu from './BurgerMenu/BurgerMenu'
 import Menu from './Menu/Menu'
 

@@ -1,8 +1,8 @@
-import { Box, Center, Text } from '@chakra-ui/react'
+import { Box, Center } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Logo from '../Logo/Logo'
 import { useAuth } from '../../../context/AuthContext'
+import Logo from '../Logo/Logo'
 
 const Menu = () => {
 	const { user, logout } = useAuth()

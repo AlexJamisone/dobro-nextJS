@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react'
 import Card from '../Card/Card'
-import { dbCofeeDataApi } from '../Content'
+import { dbCofeeDataApi } from '../../../types/types'
 
 interface CardListProps {
 	data: dbCofeeDataApi[] | undefined
 }
 
-const CardList = ({data}: CardListProps) => {
+const CardList = ({ data }: CardListProps) => {
 	return (
 		<Box
 			display="flex"
