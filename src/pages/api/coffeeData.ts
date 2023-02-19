@@ -27,8 +27,8 @@ export default async function handler(
 						)
 						return {
 							...item,
-							ratio: response.ratio,
-							storeQuantityKg: response.storeQuantityKg,
+							ratio: response?.ratio,
+							storeQuantityKg: response?.storeQuantityKg,
 						}
 					} catch (error) {
 						console.log(error)

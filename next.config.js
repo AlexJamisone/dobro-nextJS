@@ -5,14 +5,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
-module.exports = {
-	experimental: {
-		images: {
-			allowFutureImage: true,
-		},
-	},
-	images: {
-		domains: ['coffee-static.storage.yandexcloud.net'],
-	},
-}

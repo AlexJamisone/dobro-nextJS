@@ -42,6 +42,7 @@ const Content = () => {
 		const value = e.target.value.toLowerCase()
 		setSearch(value)
 	}
+	console.log(data)
 	return (
 		<>
 			<SearchBar onChangeHandler={onSearchChange} failure={failure} />

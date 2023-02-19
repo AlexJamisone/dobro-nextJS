@@ -17,8 +17,11 @@ const CoffeeAvailability = ({
 		boxShadow="lg"
 		py={'8.25px'}
 	>
-		В наличии:{' '}
-		{ratio === 0.25 ? storeQuantityKg / 0.25 : storeQuantityKg / 1}
+		{storeQuantityKg <= 0
+			? 'Нет в наличии'
+			: ratio === 0.25
+			? `В наличии: ${storeQuantityKg / 0.25}`
+			: `В наличии: ${storeQuantityKg / 1}`}
 	</Text>
 )
 
