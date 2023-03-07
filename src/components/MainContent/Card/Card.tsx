@@ -40,8 +40,7 @@ const Card = ({ data }: CardProps) => {
 					width={91}
 					height={91}
 					alt={name}
-					loading="lazy"
-					unoptimized={true}
+					priority
 				/>
 				<Text
 					fontSize={[12, 14]}

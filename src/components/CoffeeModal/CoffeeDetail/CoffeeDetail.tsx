@@ -1,4 +1,12 @@
-import { Grid, GridItem, Image, Text, Stack, Icon } from '@chakra-ui/react'
+import {
+	Grid,
+	GridItem,
+	Image,
+	Text,
+	Stack,
+	Spinner,
+	Center,
+} from '@chakra-ui/react'
 import CoffeeGrade from '../CoffeeGrade/CoffeeGrade'
 import CoffeeHandler from '../CoffeeHandler/CoffeeHandler'
 import CoffeeStars from '../CoffeeStars/CoffeeStars'
@@ -32,7 +40,16 @@ const CoffeeDetail = ({
 			fontSize={[14, 16]}
 		>
 			<GridItem alignSelf="center">
-				<Image alt={name} src={img} w={[150, 250]} />
+				<Image
+					alt={name}
+					src={img}
+					w={[150, 250]}
+					fallback={
+						<Center>
+							<Spinner justifySelf="center" size={['md','xl']} />
+						</Center>
+					}
+				/>
 			</GridItem>
 			<GridItem>
 				<Stack>
