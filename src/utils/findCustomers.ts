@@ -11,17 +11,19 @@ export interface Customers {
 	firstName: string
 	avatar: Avatar | undefined
 	createTime: string
-	sex: string | undefined
+	sex: 'male' | 'female'
 	saved: number
 	spent: number
+	dateOfBirth?: string
 	transactions: CheckData[]
 }
 
 interface DataApi {
 	id: number
 	firstName: string
-	sex: string | undefined
+	sex: 'male' | 'female'
 	createTime: string
+	dateOfBirth?: string
 }
 
 export const findCustomers = async (phone: string) => {
@@ -36,6 +38,7 @@ export const findCustomers = async (phone: string) => {
 					firstName,
 					id,
 					sex,
+					dateOfBirth,
 				}: DataApi): Promise<Customers> => {
 					const avatar = await createBaseAvatar(id)
 					const { bonus, spent } = await customerInfo(id)
@@ -47,6 +50,7 @@ export const findCustomers = async (phone: string) => {
 						id,
 						firstName,
 						avatar,
+						dateOfBirth,
 						bonus,
 						createTime,
 						sex,

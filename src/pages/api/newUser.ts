@@ -14,7 +14,7 @@ export default async function handler(
 		await baseCallApi('/bonuses/createCustomer', 'POST', {
 			firstName: validName,
 			dateOfBirth:
-				birthday.length === 0 ? new Date().toLocaleString : birthday,
+				birthday?.length === 0 ? new Date().toLocaleString : birthday,
 			contactMethods: [
 				{
 					type: 'phoneNumber',

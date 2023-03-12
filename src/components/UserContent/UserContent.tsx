@@ -1,4 +1,5 @@
-import { Center, Text } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Center, Text, Button } from '@chakra-ui/react'
 import moment from 'moment'
 import 'moment/locale/ru'
 import { useQuery } from 'react-query'
@@ -8,9 +9,11 @@ import CheckTable from '../CheckTable/CheckTable'
 import NewUser from '../NewUser/NewUser'
 import SkeletonComponent from '../Skeleton/Sceleton'
 import UserAvatar from '../UserAvatar/UserAvatar'
+import UpdateUser from '../UpdateUser/UpdateUser'
 
 const UserContent = () => {
 	const { user } = useAuth()
+	const [editMode, setEditMode] = useState<boolean>(false)
 	const { data, isLoading, refetch } = useQuery('user', async () => {
 		try {
 			const response = await fetch('api/searchClient', {
@@ -25,6 +28,7 @@ const UserContent = () => {
 			console.log(error)
 		}
 	})
+	console.log(data)
 	return (
 		<>
 			{isLoading ? (
@@ -35,15 +39,20 @@ const UserContent = () => {
 				<NewUser refetch={refetch} />
 			) : (
 				<>
-					{data?.map(
-						({
-							id,
-							bonus,
-							firstName,
+					{data?.map((user: Customers) => {
+						const {
 							avatar,
+							bonus,
 							createTime,
+							firstName,
+							id,
+							saved,
+							sex,
+							spent,
 							transactions,
-						}: Customers) => (
+							dateOfBirth
+						} = user
+						return (
 							<Center
 								key={id}
 								flexDirection="column"
@@ -56,20 +65,43 @@ const UserContent = () => {
 									avatar={avatar}
 									refetch={refetch}
 								/>
-								<Text>Привет {firstName}</Text>
-								<Text>У тебя сейчаc {bonus} бонусов</Text>
-								<Text>
-									Ты с нами уже{' '}
-									{moment(createTime).fromNow(true)}
-								</Text>
-								{transactions.length === 0 ? (
-									<Text>Пока что нет чеков</Text>
+								{editMode ? (
+									<UpdateUser
+										info={user}
+										editMode={editMode}
+										setEditMode={setEditMode}
+										refetch={refetch}
+									/>
 								) : (
-									<CheckTable transactions={transactions} />
+									<>
+										<Text>Привет {firstName}</Text>
+										<Text>
+											У тебя сейчаc {bonus} бонусов
+										</Text>
+										<Text>
+											Ты с нами уже{' '}
+											{moment(createTime).fromNow(true)}
+										</Text>
+										<Button
+											fontWeight={400}
+											onClick={() =>
+												setEditMode(!editMode)
+											}
+										>
+											Редактировать профиль
+										</Button>
+										{transactions.length === 0 ? (
+											<Text>Пока что нет чеков</Text>
+										) : (
+											<CheckTable
+												transactions={transactions}
+											/>
+										)}
+									</>
 								)}
 							</Center>
 						)
-					)}
+					})}
 				</>
 			)}
 		</>

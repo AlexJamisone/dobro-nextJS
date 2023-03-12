@@ -1,7 +1,7 @@
 export interface NewUserFieldsState {
-	phone: string | undefined
+	phone?: string
 	firstName: string
-	birthday: string
+	birthday?: string
 	sex: 'male' | 'female'
 	error: boolean
 	loading: boolean

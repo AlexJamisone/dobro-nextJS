@@ -56,7 +56,7 @@ const UserAvatar = ({ id, avatar, refetch }: UserAvatarProps) => {
 			const { http_code, message } = await response.json()
 			if (http_code) {
 				toast({
-					title: 'Кажется картинка слишком много для нас весить, максимум 10,4Мб',
+					title: 'Кажется картинка слишком много для нас весит, максимум 10,4Мб',
 					status: 'error',
 					isClosable: true,
 					duration: 4000,
