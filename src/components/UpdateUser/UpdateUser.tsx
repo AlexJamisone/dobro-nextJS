@@ -65,9 +65,14 @@ const UpdateUser = ({ editMode, setEditMode, info, refetch }: UpdateUserProps) =
 			}
 		} catch (error) {
 			console.log(error)
+			toast({
+				title: `Произошла ошибка: ${error}`,
+				status: 'error',
+				isClosable: true,
+				duration: 3000
+			})
 		}
 	}
-	console.log(state)
 	return (
 		<>
 			<FormControl display='flex' flexDirection='column' gap={2} w={'80%'} isInvalid={error}>

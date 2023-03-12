@@ -28,7 +28,6 @@ const UserContent = () => {
 			console.log(error)
 		}
 	})
-	console.log(data)
 	return (
 		<>
 			{isLoading ? (
