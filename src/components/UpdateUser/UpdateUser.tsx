@@ -9,7 +9,8 @@ import {
 	Text,
 	Stack,
 	FormErrorMessage,
-	useToast
+	useToast,
+	Box,
 } from '@chakra-ui/react'
 import { IoReturnDownBack } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
@@ -19,16 +20,21 @@ import {
 	NewUserReducer,
 	NewUserFieldsState,
 } from '../../reducers/NewUser.reducer'
-import { useMutation, useQueryClient } from 'react-query'
-
+import { useMutation, useQueryClient, QueryObserverResult } from 'react-query'
 
 interface UpdateUserProps {
 	editMode: boolean
 	setEditMode: Dispatch<SetStateAction<boolean>>
 	info: Customers
+	refetch: () => Promise<QueryObserverResult>
 }
 
-const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
+const UpdateUser = ({
+	editMode,
+	setEditMode,
+	info,
+	refetch,
+}: UpdateUserProps) => {
 	const toast = useToast()
 	const client = useQueryClient()
 	const { firstName, id, sex, dateOfBirth } = info
@@ -46,48 +52,70 @@ const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 		userInfo: NewUserFieldsState
 	) => {
 		try {
-			dispatch({type: "SET_LOADING", payload: true})
-			await fetch('/api/updateUser', {
-				method: 'POST',
-				body: JSON.stringify({ id, userInfo }),
-			})
-			await refetch()
-			toast({
-				title: 'Данные успешно обновленны!',
-				status: 'success',
-				isClosable: true,
-				duration: 3000
-			})
-			dispatch({type: "SET_LOADING", payload: false})
-			setEditMode(!editMode)
+			if (userInfo.firstName.length === 0) {
+				dispatch({ type: 'SET_ERROR', payload: true })
+			} else {
+				dispatch({ type: 'SET_LOADING', payload: true })
+				const response = await fetch('/api/updateUser', {
+					method: 'POST',
+					body: JSON.stringify({ id, userInfo }),
+				})
+				await response.json()
+				toast({
+					title: 'Данные успешно обновленны!',
+					status: 'success',
+					isClosable: true,
+					duration: 3000,
+				})
+				await refetch()
+				dispatch({ type: 'SET_LOADING', payload: false })
+				setEditMode(!editMode)
+			}
 		} catch (error) {
 			console.log(error)
 			toast({
 				title: `Произошла ошибка: ${error}`,
 				status: 'error',
 				isClosable: true,
-				duration: 3000
+				duration: 3000,
 			})
 		}
 	}
-	console.log(state)
+	const { mutate: update } = useMutation({
+		mutationFn: async () => await handlUpdateUser(id, state),
+		onSuccess: () => {
+			client.invalidateQueries({ queryKey: ['user'] })
+		},
+	})
+	console.log()
 	return (
 		<>
-			<FormControl display='flex' flexDirection='column' gap={2} w={'80%'} isInvalid={error}>
-				<FormLabel textAlign='center'>Имя</FormLabel>
-				<Input
-					placeholder="Твоё Имя"
-					value={name}
-					onChange={(e) => {
-						dispatch({ type: 'SET_ERROR', payload: false })
-						dispatch({
-							type: 'SET_FIRST_NAME',
-							payload: e.target.value,
-						})
-					}}
+			<Box w={['80%','30%']}>
+				<FormControl
+					display="flex"
+					flexDirection="column"
+					gap={2}
+					isInvalid={error}
+				>
+					<FormLabel textAlign="center">Имя</FormLabel>
+					<Input
+						placeholder="Твоё Имя"
+						value={name}
+						onChange={(e) => {
+							dispatch({ type: 'SET_ERROR', payload: false })
+							dispatch({
+								type: 'SET_FIRST_NAME',
+								payload: e.target.value,
+							})
+						}}
 					/>
-					{error ? <FormErrorMessage>Пожалуйста укажит своё имя</FormErrorMessage> : null}
-				<FormLabel textAlign='center'>Дата Рождения</FormLabel>
+					{error ? (
+						<FormErrorMessage>
+							Пожалуйста укажит своё имя
+						</FormErrorMessage>
+					) : null}
+				</FormControl>
+				<FormLabel textAlign="center">Дата Рождения</FormLabel>
 				<Input
 					type="date"
 					value={birthday}
@@ -98,7 +126,7 @@ const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 						})
 					}
 				/>
-			</FormControl>
+			</Box>
 			<RadioGroup
 				defaultValue={sexOfUser}
 				onChange={(value) =>
@@ -118,7 +146,7 @@ const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 					</Radio>
 				</Stack>
 			</RadioGroup>
-			<Stack direction={['row', 'column']}>
+			<Stack direction={['row']}>
 				<Button
 					fontWeight={400}
 					onClick={() => update()}

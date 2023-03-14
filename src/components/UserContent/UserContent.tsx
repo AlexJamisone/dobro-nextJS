@@ -48,11 +48,7 @@ const UserContent = () => {
 							createTime,
 							firstName,
 							id,
-							saved,
-							sex,
-							spent,
 							transactions,
-							dateOfBirth
 						} = user
 						return (
 							<Center
@@ -72,6 +68,7 @@ const UserContent = () => {
 										info={user}
 										editMode={editMode}
 										setEditMode={setEditMode}
+										refetch={refetch}
 									/>
 								) : (
 									<>
