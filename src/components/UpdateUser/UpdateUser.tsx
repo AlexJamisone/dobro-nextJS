@@ -18,17 +18,18 @@ import {
 	NewUserReducer,
 	NewUserFieldsState,
 } from '../../reducers/NewUser.reducer'
-import { QueryObserverResult } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
+
 
 interface UpdateUserProps {
 	editMode: boolean
 	setEditMode: Dispatch<SetStateAction<boolean>>
 	info: Customers
-	refetch: () => Promise<QueryObserverResult>
 }
 
-const UpdateUser = ({ editMode, setEditMode, info, refetch }: UpdateUserProps) => {
+const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 	const toast = useToast()
+	const client = useQueryClient()
 	const { firstName, id, sex, dateOfBirth } = info
 	const initialState: NewUserFieldsState = {
 		birthday: dateOfBirth?.substr(0, 10),
@@ -45,11 +46,11 @@ const UpdateUser = ({ editMode, setEditMode, info, refetch }: UpdateUserProps) =
 	) => {
 		try {
 			dispatch({type: "SET_LOADING", payload: true})
-			await fetch('/api/updateUser', {
+			const response = await fetch('/api/updateUser', {
 				method: 'POST',
 				body: JSON.stringify({ id, userInfo }),
 			})
-			await refetch()
+			await response.json()
 			toast({
 				title: 'Данные успешно обновленны!',
 				status: 'success',
@@ -57,12 +58,17 @@ const UpdateUser = ({ editMode, setEditMode, info, refetch }: UpdateUserProps) =
 				duration: 3000
 			})
 			dispatch({type: "SET_LOADING", payload: false})
-			setEditMode(!editMode)
 		} catch (error) {
 			console.log(error)
 		}
 	}
-	console.log(state)
+		const {mutate: update} = useMutation({
+			mutationFn: async () => await handlUpdateUser(id, state),
+			onSuccess: () => {
+				client.invalidateQueries({ queryKey: ['user'] })
+				setEditMode(!editMode)
+			}
+		})
 	return (
 		<>
 			<FormControl display='flex' flexDirection='column' gap={2} w={'80%'}>
@@ -111,7 +117,7 @@ const UpdateUser = ({ editMode, setEditMode, info, refetch }: UpdateUserProps) =
 			<Stack direction={['row', 'column']}>
 				<Button
 					fontWeight={400}
-					onClick={() => handlUpdateUser(id, state)}
+					onClick={() => update()}
 					isLoading={loading}
 				>
 					Сохранить

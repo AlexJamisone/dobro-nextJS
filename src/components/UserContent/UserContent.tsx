@@ -14,21 +14,23 @@ import UpdateUser from '../UpdateUser/UpdateUser'
 const UserContent = () => {
 	const { user } = useAuth()
 	const [editMode, setEditMode] = useState<boolean>(false)
-	const { data, isLoading, refetch } = useQuery('user', async () => {
-		try {
-			const response = await fetch('api/searchClient', {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(user?.phoneNumber),
-				method: 'POST',
-			})
-			return await response.json()
-		} catch (error) {
-			console.log(error)
+	const {data, isLoading, refetch} = useQuery({
+		queryKey: ['user'],
+		queryFn: async () => {
+			try {
+				const response = await fetch('api/searchClient', {
+					headers: {
+						"Content-Type": 'application/json'
+					},
+					body: JSON.stringify(user?.phoneNumber),
+					method: "POST"
+				})
+				return await response.json()
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	})
-	console.log(data)
 	return (
 		<>
 			{isLoading ? (
@@ -70,7 +72,6 @@ const UserContent = () => {
 										info={user}
 										editMode={editMode}
 										setEditMode={setEditMode}
-										refetch={refetch}
 									/>
 								) : (
 									<>
