@@ -8,6 +8,7 @@ import {
 	RadioGroup,
 	Text,
 	Stack,
+	FormErrorMessage,
 	useToast
 } from '@chakra-ui/react'
 import { IoReturnDownBack } from 'react-icons/io5'
@@ -46,11 +47,11 @@ const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 	) => {
 		try {
 			dispatch({type: "SET_LOADING", payload: true})
-			const response = await fetch('/api/updateUser', {
+			await fetch('/api/updateUser', {
 				method: 'POST',
 				body: JSON.stringify({ id, userInfo }),
 			})
-			await response.json()
+			await refetch()
 			toast({
 				title: 'Данные успешно обновленны!',
 				status: 'success',
@@ -58,31 +59,34 @@ const UpdateUser = ({ editMode, setEditMode, info }: UpdateUserProps) => {
 				duration: 3000
 			})
 			dispatch({type: "SET_LOADING", payload: false})
+			setEditMode(!editMode)
 		} catch (error) {
 			console.log(error)
+			toast({
+				title: `Произошла ошибка: ${error}`,
+				status: 'error',
+				isClosable: true,
+				duration: 3000
+			})
 		}
 	}
-		const {mutate: update} = useMutation({
-			mutationFn: async () => await handlUpdateUser(id, state),
-			onSuccess: () => {
-				client.invalidateQueries({ queryKey: ['user'] })
-				setEditMode(!editMode)
-			}
-		})
+	console.log(state)
 	return (
 		<>
-			<FormControl display='flex' flexDirection='column' gap={2} w={'80%'}>
+			<FormControl display='flex' flexDirection='column' gap={2} w={'80%'} isInvalid={error}>
 				<FormLabel textAlign='center'>Имя</FormLabel>
 				<Input
 					placeholder="Твоё Имя"
 					value={name}
-					onChange={(e) =>
+					onChange={(e) => {
+						dispatch({ type: 'SET_ERROR', payload: false })
 						dispatch({
 							type: 'SET_FIRST_NAME',
 							payload: e.target.value,
 						})
-					}
+					}}
 					/>
+					{error ? <FormErrorMessage>Пожалуйста укажит своё имя</FormErrorMessage> : null}
 				<FormLabel textAlign='center'>Дата Рождения</FormLabel>
 				<Input
 					type="date"

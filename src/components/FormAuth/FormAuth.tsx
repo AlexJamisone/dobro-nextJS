@@ -122,7 +122,6 @@ const FormAuth = () => {
 			})
 		}
 	}
-	console.log(state)
 	return (
 		<Center
 			mt={10}

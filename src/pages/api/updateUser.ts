@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import baseCallApi from '../../utils/api/baseCallApi'
-import { NewUserFieldsState } from '../../reducers/NewUser.reducer'
-import { Customers } from '../../utils/findCustomers'
 
 export default async function handler(
 	req: NextApiRequest,
