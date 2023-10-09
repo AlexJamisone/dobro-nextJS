@@ -3,7 +3,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ['theweldercatherine.ru', 'coffee-static.storage.yandexcloud.net']
+		domains: ['theweldercatherine.ru', 'coffee-static.storage.yandexcloud.net', 'tea-coffee-plus.ru']
 	}
 }
 

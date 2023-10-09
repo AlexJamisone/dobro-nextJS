@@ -35,13 +35,7 @@ const Card = ({ data }: CardProps) => {
 				w={['100%']}
 				gap={3}
 			>
-				<Image
-					src={img}
-					width={91}
-					height={91}
-					alt={name}
-					priority
-				/>
+				<Image src={img} width={91} height={91} alt={name} priority />
 				<Text
 					fontSize={[12, 14]}
 					lineHeight={1.5}
@@ -50,7 +44,7 @@ const Card = ({ data }: CardProps) => {
 				>
 					{name}
 				</Text>
-				<Text w={['50px', '75px']}>{price}</Text>
+				<Text w={['50px', '75px']}>{price} ₽</Text>
 			</Box>
 		</>
 	)

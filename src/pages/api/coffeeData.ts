@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { dbCofeeDataApi } from '../../types/types'
+import axios from 'axios'
 import baseCallApi from '../../utils/api/baseCallApi'
 
 export default async function handler(
@@ -7,15 +8,13 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
-		const api_url =
-			'https://update-dobrocoffee.vercel.app/api/create/coffee'
-		const response = await fetch(api_url, {
+		const api_url = process.env.API_POINT as string
+		const response = await axios.get(api_url, {
 			method: 'GET',
 		})
-		const data = await response.json()
-		const apiCallData: dbCofeeDataApi[] = await data.dbCoffee
+		const data = await response.data[0].result?.data?.json
 		const dataWithRatio = await Promise.all(
-			apiCallData.map(
+			data?.map(
 				async (
 					item: dbCofeeDataApi
 				): Promise<dbCofeeDataApi | undefined> => {
