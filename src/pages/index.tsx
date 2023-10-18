@@ -38,7 +38,7 @@ const Home = () => {
 						>
 							+79788965258
 						</Link>
-						<span> - Наталья</span>
+						<span> - Управляющий</span>
 					</Stack>
 				</Stack>
 			</Center>
