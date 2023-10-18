@@ -1,4 +1,4 @@
-import { Center, Stack, Text } from '@chakra-ui/react'
+import { Center, Link, Stack, Text } from '@chakra-ui/react'
 import Head from 'next/head'
 import Content from '../components/MainContent/Content'
 const Home = () => {
@@ -31,6 +31,15 @@ const Home = () => {
 				>
 					<Text>г. Севастополь, пл. Захарова, 5, павильон 8</Text>
 					<Text>г. Саратов, ул. Чехова, 4</Text>
+					<Stack justifyContent="center" direction="row">
+						<Link
+							_hover={{ textDecoration: 'none' }}
+							href="tel:+79788965258"
+						>
+							+79788965258
+						</Link>
+						<span> - Наталья</span>
+					</Stack>
 				</Stack>
 			</Center>
 		</Stack>

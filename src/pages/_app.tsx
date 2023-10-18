@@ -21,8 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 								initialColorMode={theme.config.initialColorMode}
 							/>
 							<Box
-								overflow="hidden"
+								overflow="scroll"
 								width="100vw"
+								height="100vh"
 								fontFamily={`'Unbounded', cursive`}
 							>
 								<Navigation />
