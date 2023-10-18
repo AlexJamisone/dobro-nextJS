@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 							<Box
 								overflow="hidden"
 								width="100vw"
-								height="100vh"
 								fontFamily={`'Unbounded', cursive`}
 							>
 								<Navigation />

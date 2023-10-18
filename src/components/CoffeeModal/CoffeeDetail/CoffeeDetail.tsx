@@ -46,7 +46,7 @@ const CoffeeDetail = ({
 					w={[150, 250]}
 					fallback={
 						<Center>
-							<Spinner justifySelf="center" size={['md','xl']} />
+							<Spinner justifySelf="center" size={['md', 'xl']} />
 						</Center>
 					}
 				/>
@@ -69,7 +69,7 @@ const CoffeeDetail = ({
 					rounded="full"
 					boxShadow="lg"
 				>
-					{price}
+					{price} ₽
 				</Text>
 			</GridItem>
 			<GridItem my={3} colStart={2}>

@@ -21,6 +21,8 @@ const CardList = ({ data }: CardListProps) => {
 				'::-webkit-scrollbar': {
 					display: 'none',
 				},
+				maskImage:
+					'linear-gradient(to bottom, black 55%, rgba(0, 0, 0, 0.01) 90%)',
 			}}
 			w={[300, 417]}
 		>
